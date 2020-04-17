@@ -18,6 +18,8 @@ export const CHE_TASK_TYPE: string = 'che';
 export class CheTaskTerminalWidgetManager extends TaskTerminalWidgetManager {
 
     async createNewTaskTerminal(config: TaskConfiguration | undefined, factoryOptions: TerminalWidgetFactoryOptions): Promise<TerminalWidget> {
+        console.log('/////////////////// CHE TASK terminal manager /// create NEW Task terminal /// factory ', factoryOptions);
+        console.log('/// CHE TASK terminal manager /// create NEW Task terminal /// config ', config);
         const attributes = factoryOptions.attributes || {};
         const isRemote = this.isRemoteTask(config);
         attributes['remote'] = isRemote ? 'true' : 'false';
@@ -29,13 +31,18 @@ export class CheTaskTerminalWidgetManager extends TaskTerminalWidgetManager {
         factoryOptions: TerminalWidgetFactoryOptions,
         openerOptions: TaskTerminalWidgetOpenerOptions): Promise<{ isNew: boolean, widget: TerminalWidget }> {
 
-        console.log('//// CHE TASK terminal manager === getWidgetToRunTask');
+        console.log('/////////////////// CHE TASK terminal manager === getWidgetToRunTask === factory ', factoryOptions);
+        console.log('/// CHE TASK terminal manager === getWidgetToRunTask === opener ', openerOptions);
 
         let targetWidget: TerminalWidget | undefined;
         if (TaskTerminalWidgetOpenerOptions.isDedicatedTerminal(openerOptions)) {
+            console.log('/// CHE TASK terminal manager === getWidgetToRunTask === isDedicatedTerminal ');
             targetWidget = this.getDedicatedTerminal(openerOptions);
         } else if (TaskTerminalWidgetOpenerOptions.isSharedTerminal(openerOptions)) {
+            console.log('/// CHE TASK terminal manager === getWidgetToRunTask === isSharedTerminal ');
             targetWidget = this.getSharedTerminal(openerOptions);
+        } else {
+            console.log('/// CHE TASK terminal manager === getWidgetToRunTask === NOT shared NOT dedicated ');
         }
 
         return targetWidget ? { isNew: false, widget: targetWidget } : { isNew: true, widget: await this.createNewTaskTerminal(openerOptions.taskConfig, factoryOptions) };
@@ -58,14 +65,18 @@ export class CheTaskTerminalWidgetManager extends TaskTerminalWidgetManager {
     }
 
     protected getSharedTerminal(openerOptions: TaskTerminalWidgetOpenerOptions): TerminalWidget | undefined {
+        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CHE TASK terminal manager === getSharedTerminal ', openerOptions);
         const isRemote = this.isRemoteTask(openerOptions.taskConfig);
+        console.log('/// CHE TASK terminal manager === getSharedTerminal isRemote ', isRemote);
 
         const lastUsedTerminal = this.terminalService.lastUsedTerminal;
         if (this.isSharedIdleTaskTerminal(lastUsedTerminal)) {
+            console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CHE TASK terminal manager === getSharedTerminal === isSharedIdleTaskTerminal ');
             const config = (<TaskTerminalWidget>lastUsedTerminal).taskConfig;
 
             const isRemoteTask = this.isRemoteTask(config);
             if ((isRemote && isRemoteTask) || (!isRemote && !isRemoteTask)) {
+                console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CHE TASK terminal manager === getSharedTerminal === RETURN lastUsed ');
                 return lastUsedTerminal;
             }
         }
@@ -76,15 +87,18 @@ export class CheTaskTerminalWidgetManager extends TaskTerminalWidgetManager {
                 availableWidgets.push(<TaskTerminalWidget>widget);
             }
         }
+        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CHE TASK terminal manager === getSharedTerminal === available ', availableWidgets);
 
         const suitableWidget = this.findSuitableWidget(isRemote, availableWidgets);
         if (suitableWidget) {
+            console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CHE TASK terminal manager === getSharedTerminal === RETURN suitable ');
             return suitableWidget;
         }
 
         // we don't have suitable widget, so we dispose existed shared task terminal to create another one
         const sharedTaskTerminal = availableWidgets[0];
         if (sharedTaskTerminal) {
+            console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CHE TASK terminal manager === getSharedTerminal === dispose ');
             sharedTaskTerminal.dispose();
         }
     }
