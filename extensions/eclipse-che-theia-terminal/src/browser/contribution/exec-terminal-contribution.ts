@@ -24,6 +24,7 @@ import { filterRecipeContainers } from './terminal-command-filter';
 import { EnvVariablesServer } from '@theia/core/lib/common/env-variables';
 import { isOSX } from '@theia/core/lib/common/os';
 import { TerminalKeybindingContexts } from '@theia/terminal/lib/browser/terminal-keybinding-contexts';
+import { TERMINAL_WIDGET_FACTORY_ID } from '@theia/terminal/lib/browser/terminal-widget-impl';
 
 export const NewTerminalInSpecificContainer = {
     id: 'terminal-in-specific-container:new',
@@ -204,13 +205,21 @@ export class ExecTerminalFrontendContribution extends TerminalFrontendContributi
     }
 
     async newTerminal(options: TerminalWidgetOptions): Promise<TerminalWidget> {
+        console.log('11111111111 new EXEC terminal ');
         let containerName;
         let closeWidgetExitOrError: boolean = true;
 
-        if (options.attributes) {
-            containerName = options.attributes['CHE_MACHINE_NAME'];
+        const attributes = options.attributes;
+        if (attributes) {
+            const isRemoteValue = attributes['remote'];
+            if (isRemoteValue && isRemoteValue.toLowerCase() === 'false') {
+                console.log('111 new EXEC terminal +++ before super.newTerminal ');
+                return super.newTerminal(options);
+            }
 
-            const closeWidgetOnExitOrErrorValue = options.attributes['closeWidgetExitOrError'];
+            containerName = attributes['CHE_MACHINE_NAME'];
+
+            const closeWidgetOnExitOrErrorValue = attributes['closeWidgetExitOrError'];
             if (closeWidgetOnExitOrErrorValue) {
                 closeWidgetExitOrError = closeWidgetOnExitOrErrorValue.toLowerCase() === 'false' ? false : true;
             }
@@ -229,7 +238,10 @@ export class ExecTerminalFrontendContribution extends TerminalFrontendContributi
     }
 
     get all(): TerminalWidget[] {
-        return this.widgetManager.getWidgets(REMOTE_TERMINAL_WIDGET_FACTORY_ID) as TerminalWidget[];
+        const terminalWidgets = this.widgetManager.getWidgets(TERMINAL_WIDGET_FACTORY_ID) as TerminalWidget[];
+        const remoteTerminalWidgets = this.widgetManager.getWidgets(REMOTE_TERMINAL_WIDGET_FACTORY_ID) as TerminalWidget[];
+
+        return [...terminalWidgets, ...remoteTerminalWidgets];
     }
 
     async registerMenus(menus: MenuModelRegistry): Promise<void> {

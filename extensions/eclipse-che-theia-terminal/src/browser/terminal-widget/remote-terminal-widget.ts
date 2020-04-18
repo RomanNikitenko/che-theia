@@ -67,6 +67,7 @@ export class RemoteTerminalWidget extends TerminalWidgetImpl {
     @postConstruct()
     protected init(): void {
         super.init();
+        console.log('++++++++++++++++++++++ REMOTE terminal widget +++ INIT ', this.options);
         this.channel = this.outputChannelManager.getChannel(RemoteTerminalWidget.OUTPUT_CHANNEL_NAME);
 
         this.toDispose.push(this.remoteTerminalWatcher.onTerminalExecExit(exitEvent => {
@@ -111,6 +112,7 @@ export class RemoteTerminalWidget extends TerminalWidgetImpl {
     }
 
     async start(id?: number): Promise<number> {
+        console.log('+++ REMOTE terminal widget +++ START +++ ', id);
         try {
             if (!this.termServer) {
                 const termProxyCreator = await this.termProxyCreatorProvider();
@@ -135,6 +137,7 @@ export class RemoteTerminalWidget extends TerminalWidgetImpl {
             if (IBaseTerminalServer.validateId(id)) {
                 this._terminalId = id!;
                 this.onDidOpenEmitter.fire(undefined);
+                console.log('+++ REMOTE terminal widget +++ START validated +++ ', this.terminalId);
                 return this.terminalId;
             }
             throw new Error('Failed to start terminal. Cause: ' + error);
@@ -236,10 +239,13 @@ export class RemoteTerminalWidget extends TerminalWidgetImpl {
     }
 
     protected async attachTerminal(id: number): Promise<number> {
+        console.log('+++ REMOTE terminal widget +++ ATTACH ', id);
         const termId = await this.termServer!.check({ id: id });
         if (IBaseTerminalServer.validateId(termId)) {
+            console.log('+++ REMOTE terminal widget +++ ATTACH +++ validated', termId);
             return termId;
         }
+        console.log('+++ REMOTE terminal widget +++ ATTACH +++ NOT validated', termId);
         this.logger.error(`Error attaching to terminal id ${id}, the terminal is most likely gone. Starting up a new terminal instead.`);
         return this.createTerminal();
     }

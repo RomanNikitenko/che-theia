@@ -21,8 +21,10 @@ export class TaskStatusHandler {
 
     init(): void {
         che.task.onDidEndTask(async (event: che.TaskExitedEvent) => {
+            console.log('!!!!!!!!!!!!!!!!!!!!!!!!! onDidEndTask ' + JSON.stringify(event));
             const status = this.getTaskStatus(event);
             const terminalIdentifier = this.getTerminalIdentifier(event);
+            console.log('!!! term identifier ' + JSON.stringify(terminalIdentifier));
 
             che.task.setTaskStatus({ status, terminalIdentifier });
         }, undefined, startPoint.getSubscriptions());
@@ -33,8 +35,7 @@ export class TaskStatusHandler {
         if (taskConfig && taskConfig.type === CHE_TASK_TYPE) {
             return { factoryId: REMOTE_TERMINAL_WIDGET_FACTORY_ID, processId: event.processId };
         } else {
-            const terminalWidgetId = `${TERMINAL_WIDGET_FACTORY_ID}-${event.terminalId}`;
-            return { factoryId: TERMINAL_WIDGET_FACTORY_ID, widgetId: terminalWidgetId };
+            return { factoryId: TERMINAL_WIDGET_FACTORY_ID, terminalId: event.terminalId };
         }
     }
 
