@@ -70,7 +70,8 @@ export class CheTaskRunner {
                 attributes: {
                     CHE_MACHINE_NAME: containerName,
                     closeWidgetExitOrError: 'false',
-                    interruptProcessOnClose: 'true'
+                    interruptProcessOnClose: 'true',
+                    kind: 'remote-task'
                 }
             };
             const terminal = theia.window.createTerminal(terminalOptions);

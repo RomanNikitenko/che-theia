@@ -67,7 +67,7 @@ export class RemoteTerminalWidget extends TerminalWidgetImpl {
     @postConstruct()
     protected init(): void {
         super.init();
-        console.log('++++++++++++++++++++++ REMOTE terminal widget +++ INIT ', this.options);
+        console.error('++++++++++++++++++++++ REMOTE terminal widget +++ INIT ', this.options);
         this.channel = this.outputChannelManager.getChannel(RemoteTerminalWidget.OUTPUT_CHANNEL_NAME);
 
         this.toDispose.push(this.remoteTerminalWatcher.onTerminalExecExit(exitEvent => {
