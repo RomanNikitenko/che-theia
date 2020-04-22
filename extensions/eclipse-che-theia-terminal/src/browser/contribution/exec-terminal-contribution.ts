@@ -205,6 +205,8 @@ export class ExecTerminalFrontendContribution extends TerminalFrontendContributi
     }
 
     async newTerminal(options: TerminalWidgetOptions): Promise<TerminalWidget> {
+        console.log('11111111111 new EXEC terminal ', options);
+        let kind;
         let containerName;
         let closeWidgetExitOrError: boolean = true;
 
@@ -215,6 +217,8 @@ export class ExecTerminalFrontendContribution extends TerminalFrontendContributi
                 return super.newTerminal(options);
             }
 
+            kind = attributes['kind'];
+
             containerName = attributes['CHE_MACHINE_NAME'];
 
             const closeWidgetOnExitOrErrorValue = attributes['closeWidgetExitOrError'];
@@ -222,6 +226,11 @@ export class ExecTerminalFrontendContribution extends TerminalFrontendContributi
                 closeWidgetExitOrError = closeWidgetOnExitOrErrorValue.toLowerCase() === 'false' ? false : true;
             }
         }
+
+        if (!options.kind && kind) {
+            options = { ...options, kind };
+        }
+        console.log('11111111111 new EXEC terminal 1111 options after ', options);
 
         if (!containerName) {
             containerName = await this.getEditorContainerName();

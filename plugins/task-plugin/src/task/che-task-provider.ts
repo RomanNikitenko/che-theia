@@ -62,7 +62,8 @@ export class CheTaskProvider {
             definition: {
                 type: taskType,
                 target: resultTarget,
-                previewUrl: cheTaskDefinition.previewUrl
+                previewUrl: cheTaskDefinition.previewUrl,
+                widgetId: cheTaskDefinition.widgetId
             },
             name: task.name,
             source: task.source,

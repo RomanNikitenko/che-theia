@@ -21,8 +21,10 @@ export class TaskStatusHandler {
 
     init(): void {
         che.task.onDidEndTask(async (event: che.TaskExitedEvent) => {
+            console.log('!!!!!!!!!!!!!!!!!!!!!!!!! onDidEndTask ' + JSON.stringify(event));
             const status = this.getTaskStatus(event);
             const terminalIdentifier = this.getTerminalIdentifier(event);
+            console.log('!!! term identifier ' + JSON.stringify(terminalIdentifier));
 
             che.task.setTaskStatus({ status, terminalIdentifier });
         }, undefined, startPoint.getSubscriptions());

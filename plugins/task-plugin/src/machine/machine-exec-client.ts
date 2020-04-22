@@ -53,6 +53,7 @@ export class MachineExecClient {
     }
 
     async getExecId(machineExec: MachineExec): Promise<number> {
+        // TODO reconnection 
         const connection = await this.getConnection();
         const request = new rpc.RequestType<MachineExec, number, void, void>(CREATE_METHOD_NAME);
         return await connection.sendRequest(request, machineExec);
