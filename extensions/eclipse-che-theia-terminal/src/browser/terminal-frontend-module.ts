@@ -82,6 +82,8 @@ export default new ContainerModule((bind: interfaces.Bind, unbind: interfaces.Un
 
     bind<TerminalApiEndPointProvider>('TerminalApiEndPointProvider').toProvider<URI | undefined>(context =>
         async () => {
+            const finishRun = new Date().valueOf();
+            console.error('!!!!!!!!!!!!!!!!!!! GET terminal API  ', finishRun);
             const workspaceService = context.container.get<CHEWorkspaceService>(CHEWorkspaceService);
             const envServer = context.container.get<EnvVariablesServer>(EnvVariablesServer);
             try {

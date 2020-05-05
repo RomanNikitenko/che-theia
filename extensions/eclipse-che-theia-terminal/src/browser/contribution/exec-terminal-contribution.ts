@@ -25,6 +25,7 @@ import { EnvVariablesServer } from '@theia/core/lib/common/env-variables';
 import { isOSX } from '@theia/core/lib/common/os';
 import { TerminalKeybindingContexts } from '@theia/terminal/lib/browser/terminal-keybinding-contexts';
 import { TERMINAL_WIDGET_FACTORY_ID } from '@theia/terminal/lib/browser/terminal-widget-impl';
+import URI from '@theia/core/lib/common/uri';
 
 export const NewTerminalInSpecificContainer = {
     id: 'terminal-in-specific-container:new',
@@ -58,9 +59,11 @@ export class ExecTerminalFrontendContribution extends TerminalFrontendContributi
 
     private readonly mainMenuId = 'theia:menubar';
     private editorContainerName: string | undefined;
+    private workspaceId: string | undefined;
+    private terminalApiEndPoint: URI | undefined;
 
     async registerCommands(registry: CommandRegistry): Promise<void> {
-        const serverUrl = await this.termApiEndPointProvider();
+        const serverUrl = await this.getTerminalApiEndPoint();
         if (serverUrl) {
             registry.registerCommand(NewTerminalInSpecificContainer, {
                 execute: (containerNameToExecute: string) => {
@@ -164,10 +167,27 @@ export class ExecTerminalFrontendContribution extends TerminalFrontendContributi
         }
     }
 
-    public async newTerminalPerContainer(containerName: string, options: TerminalWidgetOptions, closeWidgetOnExitOrError: boolean = true): Promise<TerminalWidget> {
+    public async newTerminalPerContainer(containerName: string, options: TerminalWidgetOptions, closeWidgetOnExitOrError: boolean = false): Promise<TerminalWidget> {
         try {
-            const workspaceId = <string>await this.baseEnvVariablesServer.getValue('CHE_WORKSPACE_ID').then(v => v ? v.value : undefined);
-            const termApiEndPoint = await this.termApiEndPointProvider();
+
+            const getWksId = new Date().valueOf();
+            console.info(' new terminal +++ get WORKSPACE ID  ', getWksId);
+
+            const workspaceId = await this.getWorkspaceId();
+
+            const finishWksId = new Date().valueOf();
+            console.info(' new terminal +++ AFTER get WORKSPACE ID  ', finishWksId);
+            console.error('!!! NEW TERMINAL RESOLVE WORKSPACE  ', (finishWksId - getWksId) / 1000);
+
+            const getApi = new Date().valueOf();
+            console.info(' new terminal +++ get API ID  ', getApi);
+
+            const termApiEndPoint = await this.getTerminalApiEndPoint();
+            console.error(' new terminal +++ terminal api endpoint  ', termApiEndPoint!.toString());
+
+            const finishApiID = new Date().valueOf();
+            console.info(' new terminal +++ AFTER get API ID  ', finishApiID);
+            console.error('!!! NEW TERMINAL RESOLVE API  ', (finishApiID - getApi) / 1000);
 
             const widget = await this.widgetManager.getOrCreateWidget(REMOTE_TERMINAL_WIDGET_FACTORY_ID, <RemoteTerminalWidgetFactoryOptions>{
                 created: new Date().toString(),
@@ -195,6 +215,26 @@ export class ExecTerminalFrontendContribution extends TerminalFrontendContributi
         const termWidget = await this.newTerminalPerContainer(containerName, { cwd });
         this.open(termWidget);
         termWidget.start();
+    }
+
+    protected async getWorkspaceId(): Promise<string | undefined> {
+        if (this.workspaceId) {
+            return this.workspaceId;
+        }
+
+        this.workspaceId = await this.baseEnvVariablesServer.getValue('CHE_WORKSPACE_ID').then(v => v ? v.value : undefined);
+
+        return this.workspaceId;
+    }
+
+    protected async getTerminalApiEndPoint(): Promise<URI | undefined> {
+        if (this.terminalApiEndPoint) {
+            return this.terminalApiEndPoint;
+        }
+
+        this.terminalApiEndPoint = await this.termApiEndPointProvider();
+
+        return this.terminalApiEndPoint;
     }
 
     async getEditorContainerName(): Promise<string | undefined> {

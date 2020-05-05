@@ -72,6 +72,7 @@ export class RemoteTerminalWidget extends TerminalWidgetImpl {
         this.toDispose.push(this.remoteTerminalWatcher.onTerminalExecExit(exitEvent => {
             if (this.terminalId === exitEvent.id) {
                 if (this.options.closeWidgetOnExitOrError) {
+                    console.log('!!!!!!!!!!!!!!!!!!!! ', this.options.closeWidgetOnExitOrError);
                     this.dispose();
                 }
                 this.onTermDidClose.fire(this);
@@ -113,7 +114,15 @@ export class RemoteTerminalWidget extends TerminalWidgetImpl {
     async start(id?: number): Promise<number> {
         try {
             if (!this.termServer) {
+                const startRun = new Date().valueOf();
+                console.info('!!! start terminal !!! termProxyCreatorProvider ', startRun);
+
                 const termProxyCreator = await this.termProxyCreatorProvider();
+
+                const finishRun = new Date().valueOf();
+                console.info('!!! start terminal !!! termProxyCreatorProvider ', finishRun);
+                console.error('!!! RESOLVE termProxyCreatorProvider  ', (finishRun - startRun) / 1000);
+
                 this.termServer = termProxyCreator.create();
 
                 this.toDispose.push(this.termServer.onDidCloseConnection(() => {
@@ -135,6 +144,8 @@ export class RemoteTerminalWidget extends TerminalWidgetImpl {
             if (IBaseTerminalServer.validateId(id)) {
                 this._terminalId = id!;
                 this.onDidOpenEmitter.fire(undefined);
+                const finishRun = new Date().valueOf();
+                console.error('!!!!!!!!!!!!!!!!!!! start terminal ERROR ', finishRun);
                 return this.terminalId;
             }
             throw new Error('Failed to start terminal. Cause: ' + error);
@@ -150,6 +161,8 @@ export class RemoteTerminalWidget extends TerminalWidgetImpl {
 
         if (IBaseTerminalServer.validateId(this.terminalId)) {
             this.onDidOpenEmitter.fire(undefined);
+            const finishRun = new Date().valueOf();
+            console.error('!!!!!!!!!!!!!!!!!!! start terminal  ', finishRun);
             return this.terminalId;
         }
         throw new Error('Failed to start terminal' + (id ? ` for id: ${id}.` : '.'));
