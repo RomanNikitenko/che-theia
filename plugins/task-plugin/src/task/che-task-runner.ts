@@ -11,7 +11,7 @@
 import { injectable, inject, postConstruct } from 'inversify';
 import * as che from '@eclipse-che/plugin';
 import { CHE_TASK_TYPE, Target } from './task-protocol';
-import { MachineExecClient } from '../machine/machine-exec-client';
+import { MachineExecClient, MachineExec } from '../machine/machine-exec-client';
 import { ProjectPathVariableResolver } from '../variable/project-path-variable-resolver';
 import { MachineExecWatcher } from '../machine/machine-exec-watcher';
 import * as startPoint from '../task-plugin-backend';
@@ -45,6 +45,9 @@ export class CheTaskRunner {
      * Runs a task from the given task configuration which must have a target property specified.
      */
     async run(taskConfig: che.TaskConfiguration, ctx?: string): Promise<che.TaskInfo> {
+        const startRun = new Date().valueOf();
+        console.error('!!!!!!!!!!!!!!!!!!! RUN CHE  ', startRun);
+
         const { type, label, ...definition } = taskConfig;
         if (type !== CHE_TASK_TYPE) {
             throw new Error(`Unsupported task type: ${type}`);
@@ -61,27 +64,35 @@ export class CheTaskRunner {
         }
 
         try {
-            const terminalOptions: theia.TerminalOptions = {
-                cwd: target.workingDir,
-                name: taskConfig.label,
-                shellPath: 'sh',
-                shellArgs: ['-c', `${taskConfig.command}`],
+            const getProcess = new Date().valueOf();
+            console.error('!!! get PROCESS ID  ', getProcess);
 
-                attributes: {
-                    CHE_MACHINE_NAME: containerName,
-                    closeWidgetExitOrError: 'false',
-                    interruptProcessOnClose: 'true'
-                }
+            const machineExec: MachineExec = {
+                identifier: {
+                    machineName: containerName,
+                    workspaceId: target.workspaceId || ''
+                },
+                cmd: ['sh', '-c', taskConfig.command],
+                tty: true,
+                cwd: target.workingDir
             };
-            const terminal = theia.window.createTerminal(terminalOptions);
-            terminal.show();
-            const execId = await terminal.processId;
+
+            const execId = await this.machineExecClient.getExecId(machineExec);
+
+            const finishProcess = new Date().valueOf();
+            console.error('!!! AFTER get PROCESS  ', finishProcess);
+            console.error('!!! RESOLVE PROCESS  ', (finishProcess - getProcess) / 1000);
+
+            const finishRun = new Date().valueOf();
+            console.error('!!!!!!!!!!!!!!!!!!! RETURN RUN CHE  ', finishRun);
+            console.error('!!! RESOLVE CHE  ', (finishRun - startRun) / 1000);
 
             return {
                 taskId: STUB_TASK_ID,
                 ctx: ctx,
                 config: taskConfig,
-                execId: execId
+                execId: execId,
+                terminalId: execId
             };
         } catch (error) {
             console.error('Failed to execute Che command:', error);
