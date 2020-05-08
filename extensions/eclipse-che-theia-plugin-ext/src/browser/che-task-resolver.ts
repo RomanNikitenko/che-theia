@@ -1,5 +1,5 @@
 /*********************************************************************
- * Copyright (c) 2019 Red Hat, Inc.
+ * Copyright (c) 2020 Red Hat, Inc.
  *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
@@ -7,27 +7,26 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  **********************************************************************/
-
 import { che as cheApi } from '@eclipse-che/api';
-import * as che from '@eclipse-che/plugin';
-import { ShellExecution, Task } from '@theia/plugin';
+import { TaskResolver } from '@theia/task/lib/browser';
+import { TaskConfiguration } from '@theia/task/lib/common';
+import { VariableResolverService } from '@theia/variable-resolver/lib/browser';
 import { inject, injectable, postConstruct } from 'inversify';
-import { CheWorkspaceClient } from '../che-workspace-client';
-import { COMPONENT_ATTRIBUTE, MachinesPicker } from '../machine/machines-picker';
-import { getAttribute } from '../utils';
-import { CheTaskDefinition, CHE_TASK_TYPE, Target } from './task-protocol';
+import { CheApiService } from '../common/che-protocol';
 
-/** Reads the commands from the current Che workspace and provides it as Task Configurations. */
+export const COMPONENT_ATTRIBUTE: string = 'component';
+
 @injectable()
-export class CheTaskProvider {
-    @inject(MachinesPicker)
-    protected readonly machinePicker!: MachinesPicker;
+export class CheTaskResolver implements TaskResolver {
 
-    @inject(CheWorkspaceClient)
-    protected readonly cheWorkspaceClient!: CheWorkspaceClient;
+    @inject(CheApiService)
+    protected readonly cheApi: CheApiService;
+
+    @inject(VariableResolverService)
+    protected readonly variableResolverService: VariableResolverService;
 
     private workspaceId: string | undefined;
-    private containers: { [attrName: string]: cheApi.workspace.Machine } | undefined;
+    private containers: { [key: string]: cheApi.workspace.Machine };
 
     @postConstruct()
     protected init(): void {
@@ -35,67 +34,59 @@ export class CheTaskProvider {
         this.getContainers();
     }
 
-    async provideTasks(): Promise<Task[]> {
-        return [];
-    }
-
-    async resolveTask(task: Task): Promise<Task> {
+    async resolveTask(taskConfig: TaskConfiguration): Promise<TaskConfiguration> {
         const startResolve = new Date().valueOf();
-        console.error('!!!!!!!!!!!!!!!!!!! RESOLVE CHE  ', startResolve);
+        console.error('!!!!!!!!!!!!!!!!!!! NEW RESOLVE CHE  ', startResolve);
 
-        const taskDefinition = task.definition;
-        const taskType = taskDefinition.type;
-        if (taskType !== CHE_TASK_TYPE) {
+        const taskType = taskConfig.type;
+        if (taskType !== 'che') {
             throw new Error(`Unsupported task type: ${taskType}`);
         }
 
-        const cheTaskDefinition = taskDefinition as CheTaskDefinition;
-        const target = cheTaskDefinition.target;
-        const resultTarget: Target = {};
+        const target = taskConfig.target;
+        const resultTarget: { [key: string]: string | undefined } = {};
 
         if (target && target.workspaceId) {
             console.error('!!! WORKSPACE EXIST  ', target.workspaceId);
             resultTarget.workspaceId = target.workspaceId;
         } else {
             const startWorkspace = new Date().valueOf();
-            console.error('!!! get WORKSPACE id ', startWorkspace);
 
             resultTarget.workspaceId = await this.getWorkspaceId();
 
             const finishWorkspace = new Date().valueOf();
-            console.error('!!! AFTER get WORKSPACE id ', finishWorkspace);
             console.error('!!! RESOLVE Workspace ID  ', (finishWorkspace - startWorkspace) / 1000);
         }
 
         const startContainer = new Date().valueOf();
-        console.error('!!! get CONTAINER ', startContainer);
 
         resultTarget.containerName = await this.getContainerName(target);
 
         const finishContainer = new Date().valueOf();
-        console.error('!!! AFTER get CONTAINER ', finishContainer);
         console.error('!!! RESOLVE CONTAINER ', (finishContainer - startContainer) / 1000);
 
         if (target && target.workingDir) {
             const startWorkDir = new Date().valueOf();
-            console.error('!!! resolve WORKING DIR ', startWorkDir);
 
-            resultTarget.workingDir = await che.variables.resolve(target.workingDir);
+            // const context = new URI(this.taskDefinitionRegistry.getDefinition(taskConfig) ? taskConfig.scope : taskConfig._source).withScheme('file');
+            // const variableResolverOptions = {
+            //     context, configurationSection: 'tasks'
+            // };
+
+            resultTarget.workingDir = await this.variableResolverService.resolve(target.workingDir);
 
             const finishWorkDir = new Date().valueOf();
-            console.error('!!! AFTER resolve WORKING DIR ', finishWorkDir);
             console.error('!!! RESOLVE Work DIR ', (finishWorkDir - startWorkDir) / 1000);
         }
 
-        const execution = task.execution as ShellExecution;
-        if (execution && execution.commandLine) {
+        const command = taskConfig.command;
+        let commandLine = undefined;
+        if (command) {
             const startCommand = new Date().valueOf();
-            console.error('!!! resolve COMMAND LINE ', startCommand);
 
-            execution.commandLine = await che.variables.resolve(execution.commandLine);
+            commandLine = await this.variableResolverService.resolve(command);
 
             const finishCommand = new Date().valueOf();
-            console.error('!!! AFTER resolve COMMAND LINE ', finishCommand);
             console.error('!!! RESOLVE Command  ', (finishCommand - startCommand) / 1000);
         }
 
@@ -103,59 +94,56 @@ export class CheTaskProvider {
         console.error('!!!!!!!!!!!!!!!!!!! RETURN RESOLVE CHE  ', finishResolve);
         console.error('!!! RESOLVE CHE  ', (finishResolve - startResolve) / 1000);
         return {
-            definition: {
-                type: taskType,
-                target: resultTarget,
-                previewUrl: cheTaskDefinition.previewUrl
-            },
-            name: task.name,
-            source: task.source,
-            execution: execution
+            type: taskConfig.type,
+            target: resultTarget,
+            // previewUrl: cheTaskDefinition.previewUrl,
+            label: taskConfig.label,
+            source: taskConfig.source,
+            _scope: taskConfig._scope,
+            command: commandLine
         };
     }
 
     private async getWorkspaceId(): Promise<string | undefined> {
         if (this.workspaceId) {
-            console.error('!!! resolve get workspace id !!! return existed  ', this.workspaceId);
+            console.info('!!! resolve get workspace id !!! return existed  ', this.workspaceId);
             return this.workspaceId;
         }
 
-        this.workspaceId = await this.cheWorkspaceClient.getWorkspaceId();
-        console.error('!!! resolve get workspace id !!! NOT existed  ', this.workspaceId);
+        this.workspaceId = await this.cheApi.getCurrentWorkspaceId();
+        console.info('!!! resolve get workspace id !!! NOT existed  ', this.workspaceId);
         return this.workspaceId;
     }
 
     private async getContainers(): Promise<{ [attrName: string]: cheApi.workspace.Machine }> {
         if (this.containers) {
-            console.error('!!! resolve get containers !!! return existed  ');
+            console.info('!!! resolve get containers !!! return existed  ');
             return this.containers;
         }
 
-        this.containers = await this.cheWorkspaceClient.getMachines();
-        console.error('!!! resolve get containers !!! NOT existed  ');
+        this.containers = await this.cheApi.getCurrentWorkspacesContainers();
+        console.info('!!! resolve get containers !!! NOT existed  ');
         return this.containers;
     }
 
-    private async getContainerName(target?: Target): Promise<string> {
-        if (!target) {
-            return this.machinePicker.pick();
-        }
+    private async getContainerName(target?: { containerName?: string, component?: string }): Promise<string> {
+        // if (!target) {
+        //     return this.machinePicker.pick();
+        // }
 
         const startMachines = new Date().valueOf();
-        console.error('!!! get MACHINES  ', startMachines);
 
         const containers = await this.getContainers();
 
         const finishMachines = new Date().valueOf();
-        console.error('!!! AFTER get MACHINES  ', finishMachines);
         console.error('!!! RESOLVE MACHINES  ', (finishMachines - startMachines) / 1000);
 
-        const containerName = target.containerName;
+        const containerName = target && target.containerName;
         if (containerName && containers.hasOwnProperty(containerName)) {
             return containerName;
         }
 
-        return await this.getContainerNameByComponent(target.component, containers) || this.machinePicker.pick();
+        return await this.getContainerNameByComponent(target && target.component, containers) || '';
     }
 
     private async getContainerNameByComponent(targetComponent: string | undefined, containers: { [attrName: string]: cheApi.workspace.Machine }): Promise<string | undefined> {
@@ -180,9 +168,22 @@ export class CheTaskProvider {
             return names[0];
         }
 
-        if (names.length > 1) {
-            return this.machinePicker.pick(names);
-        }
+        // if (names.length > 1) {
+        //     return this.machinePicker.pick(names);
+        // }
         return undefined;
     }
+}
+
+export function getAttribute(attributeName: string, attributes?: { [key: string]: string; }): string | undefined {
+    if (!attributes) {
+        return undefined;
+    }
+
+    for (const attribute in attributes) {
+        if (attribute === attributeName) {
+            return attributes[attribute];
+        }
+    }
+    return undefined;
 }

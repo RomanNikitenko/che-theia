@@ -48,8 +48,12 @@ import { CheWebviewEnvironment } from './che-webview-environment';
 import { TaskStatusHandler } from './task-status-handler';
 import { PluginFrontendViewContribution } from '@theia/plugin-ext/lib/main/browser/plugin-frontend-view-contribution';
 import { OauthUtils } from './oauth-utils';
-import { TaskService } from '@theia/task/lib/browser';
+import { TaskService, TaskContribution } from '@theia/task/lib/browser';
 import { TaskConfigurationsService } from './task-config-service';
+import { CheTaskResolver } from './che-task-resolver';
+import { CheTaskTerminalWidgetManager } from './che-task-terminal-widget-manager';
+import { TaskTerminalWidgetManager } from '@theia/task/lib/browser/task-terminal-widget-manager';
+import { CheTaskContribution } from './che-task-contribution';
 
 export default new ContainerModule((bind, unbind, isBound, rebind) => {
     bind(CheApiProvider).toSelf().inSingletonScope();
@@ -112,4 +116,11 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
 
     bind(TaskConfigurationsService).toSelf().inSingletonScope();
     rebind(TaskService).to(TaskConfigurationsService).inSingletonScope();
+
+    bind(CheTaskResolver).toSelf().inSingletonScope();
+    bind(CheTaskContribution).toSelf().inSingletonScope();
+    bind(TaskContribution).toService(CheTaskContribution);
+
+    bind(CheTaskTerminalWidgetManager).toSelf().inSingletonScope();
+    rebind(TaskTerminalWidgetManager).to(CheTaskTerminalWidgetManager).inSingletonScope();
 });
