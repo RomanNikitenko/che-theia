@@ -80,8 +80,16 @@ export default new ContainerModule((bind: interfaces.Bind, unbind: interfaces.Un
         return provider.createProxy<CHEWorkspaceService>(cheWorkspaceServicePath);
     }).inSingletonScope();
 
+    let terminalApiEndPoint: URI | undefined = undefined;
     bind<TerminalApiEndPointProvider>('TerminalApiEndPointProvider').toProvider<URI | undefined>(context =>
         async () => {
+            if (terminalApiEndPoint) {
+                console.log('7777777777777777!!! return CACHED ');
+                return terminalApiEndPoint;
+            } else {
+                console.log('7777777777777777!!! return NOT cached ');
+            }
+
             const workspaceService = context.container.get<CHEWorkspaceService>(CHEWorkspaceService);
             const envServer = context.container.get<EnvVariablesServer>(EnvVariablesServer);
             try {
@@ -97,13 +105,15 @@ export default new ContainerModule((bind: interfaces.Bind, unbind: interfaces.Un
                     if (token && token.value) {
                         uri = uri.withQuery('token=' + token.value);
                     }
+                    terminalApiEndPoint = uri;
                     return uri;
                 }
             } catch (err) {
                 console.error('Failed to get remote terminal server api end point url. Cause: ', err);
             }
             return undefined;
-        });
+        }
+    );
 
     bind<TerminalProxyCreatorProvider>('TerminalProxyCreatorProvider').toProvider<TerminalProxyCreator>(context =>
         () =>
