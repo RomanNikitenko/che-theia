@@ -175,6 +175,7 @@ declare module '@eclipse-che/plugin' {
     export enum TaskStatus {
         Success = 'SUCCESS',
         Error = 'ERROR',
+        InProgress = 'IN_PROGRESS',
         Unknown = 'UNKNOWN'
     }
 

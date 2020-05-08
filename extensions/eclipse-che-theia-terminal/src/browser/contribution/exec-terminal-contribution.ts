@@ -205,6 +205,7 @@ export class ExecTerminalFrontendContribution extends TerminalFrontendContributi
     }
 
     async newTerminal(options: TerminalWidgetOptions): Promise<TerminalWidget> {
+        let kind;
         let containerName;
         let closeWidgetExitOrError: boolean = true;
 
@@ -215,12 +216,18 @@ export class ExecTerminalFrontendContribution extends TerminalFrontendContributi
                 return super.newTerminal(options);
             }
 
+            kind = attributes['kind'];
+
             containerName = attributes['CHE_MACHINE_NAME'];
 
             const closeWidgetOnExitOrErrorValue = attributes['closeWidgetExitOrError'];
             if (closeWidgetOnExitOrErrorValue) {
                 closeWidgetExitOrError = closeWidgetOnExitOrErrorValue.toLowerCase() === 'false' ? false : true;
             }
+        }
+
+        if (!options.kind && kind) {
+            options = { ...options, kind };
         }
 
         if (!containerName) {
