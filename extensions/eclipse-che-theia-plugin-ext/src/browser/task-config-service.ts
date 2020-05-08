@@ -53,7 +53,7 @@ export class TaskConfigurationsService extends TaskService {
             return taskInfo;
         } catch (error) {
             const errorMessage = `Error launching task '${taskLabel}': ${error.message}`;
-            terminal.writeLine(`\x1b[31m> ${errorMessage} <\x1b[0m\n`);
+            terminal.writeLine(`\x1b[31m> ${errorMessage} ${error} <\x1b[0m\n`);
 
             console.error(errorMessage, error);
             this.messageService.error(errorMessage);

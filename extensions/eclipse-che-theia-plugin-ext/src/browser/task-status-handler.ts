@@ -9,12 +9,15 @@
  **********************************************************************/
 import { TaskStatusOptions, TerminalWidgetIdentifier } from '@eclipse-che/plugin';
 import { Widget, WidgetManager } from '@theia/core/lib/browser';
+import { TerminalService } from '@theia/terminal/lib/browser/base/terminal-service';
 import { TerminalWidget } from '@theia/terminal/lib/browser/base/terminal-widget';
-import { inject, injectable } from 'inversify';
+import { inject, injectable, postConstruct } from 'inversify';
+import { TaskService } from '@theia/task/lib/browser';
 
 const StatusIcon = {
-    SUCCESS: 'fa fa-check task-status-success',
-    ERROR: 'fa fa-times-circle task-status-error',
+    SUCCESS: 'fa fa-check',
+    ERROR: 'fa fa-times-circle',
+    IN_PROGRESS: 'task-status-in-progress',
     UNKNOWN: 'fa-question'
 };
 
@@ -23,6 +26,37 @@ export class TaskStatusHandler {
 
     @inject(WidgetManager)
     private readonly widgetManager: WidgetManager;
+
+    @inject(TaskService)
+    protected readonly taskService: TaskService;
+
+    @inject(TerminalService)
+    protected readonly terminalService: TerminalService;
+
+    @postConstruct()
+    protected init(): void {
+        console.error('77777777777777777777777777777777777  INIT ');
+
+        this.terminalService.onDidCreateTerminal(async (terminal: TerminalWidget) => {
+            console.error('7777777777777777777  onDidCreateTerminal ', terminal);
+            if (this.isTaskTerminal(terminal)) {
+                console.error('7777  onDidCreateTerminal 777 TaskTerminalWidget.is ' + terminal.id);
+                terminal.title.iconClass = StatusIcon.IN_PROGRESS;
+                // this.subscribeOnTaskTerminalEvents(terminal);
+            } else {
+                console.error('7777  onDidCreateTerminal 777 NOT TaskTerminalWidget.is ' + terminal.id);
+            }
+        });
+
+        const terminals = this.terminalService.all;
+        for (const terminal of terminals) {
+            if (this.isTaskTerminal(terminal)) {
+                this.subscribeOnTaskTerminalEvents(terminal);
+            }
+        }
+
+        this.handleRunningTasks();
+    }
 
     async setTaskStatus(options: TaskStatusOptions): Promise<void> {
         const terminal = await this.getTerminalWidget(options.terminalIdentifier);
@@ -36,9 +70,9 @@ export class TaskStatusHandler {
     protected async getTerminalWidget(terminalIdentifier: TerminalWidgetIdentifier): Promise<TerminalWidget | undefined> {
         const widgets = this.widgetManager.getWidgets(terminalIdentifier.factoryId);
 
-        const widgetId = terminalIdentifier.widgetId;
-        if (widgetId !== undefined) {
-            return this.getTerminalByWidgetId(widgetId, widgets);
+        const terminalId = terminalIdentifier.terminalId;
+        if (typeof terminalId === 'number') {
+            return this.getByTerminalId(terminalId, widgets);
         }
 
         const processId = terminalIdentifier.processId;
@@ -47,10 +81,15 @@ export class TaskStatusHandler {
         }
     }
 
-    private async getTerminalByWidgetId(id: string, widgets: Widget[]): Promise<TerminalWidget | undefined> {
-        const terminalWidget = widgets.find(widget => id === widget.id);
-        if (terminalWidget instanceof TerminalWidget) {
-            return terminalWidget;
+    private getByTerminalId(id: number, widgets: Widget[]): TerminalWidget | undefined {
+        for (const widget of widgets) {
+            if (!(widget instanceof TerminalWidget)) {
+                continue;
+            }
+
+            if (id === widget.terminalId) {
+                return widget;
+            }
         }
     }
 
@@ -60,10 +99,60 @@ export class TaskStatusHandler {
                 continue;
             }
 
-            const processId = await widget.processId;
-            if (id === processId) {
-                return widget;
+            try {
+                const processId = await widget.processId;
+                if (id === processId) {
+                    return widget;
+                }
+            } catch (error) {
+                // an error is thrown if a terminal is not started, we are trying to get a process ID for started terminals
             }
         }
+    }
+
+    private async handleRunningTasks(): Promise<void> {
+        const runningTasks = await this.taskService.getRunningTasks();
+        console.error('!!!!!!!!!!!!!!!!!! AFTER INIT running tasks ', runningTasks);
+        for (const taskInfo of runningTasks) {
+            console.error('!!! AFTER INIT for terminalId ', taskInfo.terminalId);
+            console.error('!!! AFTER INIT for execId ', taskInfo.execId);
+
+            let terminalWidget: TerminalWidget | undefined;
+            const terminalId = taskInfo.terminalId;
+
+            if (terminalId) {
+                terminalWidget = this.terminalService.getByTerminalId(terminalId);
+            } else if (taskInfo.execId) {
+                terminalWidget = await this.getTerminalByProcessId(taskInfo.execId, this.terminalService.all);
+            }
+
+            console.error('!!! AFTER INIT !!! widget ', terminalWidget);
+            if (terminalWidget && this.isTaskTerminal(terminalWidget)) {
+                console.error('!!! AFTER INIT set status ');
+                terminalWidget.title.iconClass = StatusIcon.IN_PROGRESS;
+            }
+        }
+    }
+
+    private subscribeOnTaskTerminalEvents(terminal: TerminalWidget): void {
+        const didOpenListener = terminal.onDidOpen(async () => {
+            console.error('777  onDidCreateTerminal 777 DID open ');
+            terminal.title.iconClass = StatusIcon.IN_PROGRESS;
+        });
+
+        const didOpenFailureListener = terminal.onDidOpenFailure(async () => {
+            console.error('222222222222 onDidOpenFailure ', terminal.id);
+        });
+
+        terminal.onDidDispose(() => {
+            console.error('3333333333333333333333333 dispose ', terminal.id);
+            didOpenListener.dispose();
+            didOpenFailureListener.dispose();
+        });
+    }
+
+    private isTaskTerminal(terminal: TerminalWidget): boolean {
+        const kind = terminal.kind;
+        return kind === 'task' || kind === 'remote-task';
     }
 }
