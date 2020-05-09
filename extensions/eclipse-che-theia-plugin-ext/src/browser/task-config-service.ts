@@ -13,14 +13,12 @@ import { TaskService } from '@theia/task/lib/browser';
 import { TaskTerminalWidgetOpenerOptions } from '@theia/task/lib/browser/task-terminal-widget-manager';
 import { RunTaskOption, TaskConfiguration, TaskInfo, TaskOutputPresentation } from '@theia/task/lib/common';
 import { TerminalWidgetFactoryOptions } from '@theia/terminal/lib/browser/terminal-widget-impl';
-import { inject } from 'inversify';
 import { CHE_TASK_TYPE, REMOTE_TASK_KIND, TASK_KIND } from './che-task-terminal-widget-manager';
-import { Status, TaskStatusHandler } from './task-status-handler';
 
-export class TaskConfigurationsService  extends TaskService {
+export class TaskConfigurationsService extends TaskService {
 
-    @inject(TaskStatusHandler)
-    protected readonly taskStatusHandler: TaskStatusHandler;
+    // @inject(TaskStatusHandler)
+    // protected readonly taskStatusHandler: TaskStatusHandler;
 
     protected async runResolvedTask(resolvedTask: TaskConfiguration, option?: RunTaskOption): Promise<TaskInfo | undefined> {
         const source = resolvedTask._source;
@@ -33,7 +31,8 @@ export class TaskConfigurationsService  extends TaskService {
         console.info('!!!!!  CHE TASK service !!! run 9-1 ', startTerminal);
 
         const terminal = await this.taskTerminalWidgetManager.open(this.getFactoryOptions(resolvedTask), this.getOpenerOptions(resolvedTask));
-        this.taskStatusHandler.setTaskStatusFor(terminal, Status.InProgress);
+        // terminal.title.iconClass = 'task-status-in-progress';
+        // this.taskStatusHandler.setTaskStatusFor(terminal, Status.InProgress);
 
         const finishTerminal = new Date().valueOf();
         console.info('!!!!!  CHE TASK service !!! after terminal 9-1 ', finishTerminal);
@@ -58,7 +57,8 @@ export class TaskConfigurationsService  extends TaskService {
 
             return taskInfo;
         } catch (error) {
-            this.taskStatusHandler.setTaskStatusFor(terminal, Status.Error);
+            // this.taskStatusHandler.setTaskStatusFor(terminal, Status.Error);
+            terminal.title.iconClass = 'fa fa-times-circle';
 
             const errorMessage = `Error launching task '${taskLabel}': ${error.message}`;
             terminal.writeLine(`\x1b[31m> ${errorMessage} <\x1b[0m\n`);
