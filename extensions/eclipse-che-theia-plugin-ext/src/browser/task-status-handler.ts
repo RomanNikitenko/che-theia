@@ -8,20 +8,24 @@
  * SPDX-License-Identifier: EPL-2.0
  **********************************************************************/
 import { TaskStatusOptions } from '@eclipse-che/plugin';
+import { TaskTerminalWidget } from '@theia/task/lib/browser/task-terminal-widget-manager';
 import { TerminalService } from '@theia/terminal/lib/browser/base/terminal-service';
 import { TerminalWidget } from '@theia/terminal/lib/browser/base/terminal-widget';
-import { inject, injectable } from 'inversify';
+import { inject, injectable, postConstruct } from 'inversify';
+import { RemoteTaskTerminalWidget } from './che-task-terminal-widget-manager';
 import { TaskConfigurationsService } from './task-config-service';
 
 const StatusIcon = {
-    SUCCESS: 'fa fa-check task-status-success',
-    ERROR: 'fa fa-times-circle task-status-error',
+    SUCCESS: 'fa fa-check',
+    ERROR: 'fa fa-times-circle',
+    IN_PROGRESS: 'task-status-in-progress',
     UNKNOWN: 'fa-question'
 };
 
 enum TaskStatus {
     Success = 'SUCCESS',
     Error = 'ERROR',
+    InProgress = 'IN_PROGRESS',
     Unknown = 'UNKNOWN'
 }
 
@@ -33,6 +37,31 @@ export class TaskStatusHandler {
 
     @inject(TaskConfigurationsService)
     protected readonly taskService: TaskConfigurationsService;
+
+    @postConstruct()
+    protected init(): void {
+        this.terminalService.onDidCreateTerminal(async (terminal: TerminalWidget) => {
+            if (this.isTaskTerminal(terminal)) {
+                this.setStatus(TaskStatus.InProgress, terminal);
+
+                this.subscribeOnTaskTerminalEvents(terminal);
+            }
+        });
+
+        this.taskService.onDidStartTaskFailure(taskInfo => {
+            const kind = taskInfo.kind;
+            const terminalId = taskInfo.terminalId;
+
+            if (kind && terminalId) {
+                const status = TaskStatus.Error;
+                const terminalIdentifier = { kind, terminalId };
+
+                this.setTaskStatus({ status, terminalIdentifier });
+            }
+        });
+
+        this.handleOpenTerminals();
+    }
 
     async setTaskStatus(options: TaskStatusOptions): Promise<void> {
         const terminalIdentifier = options.terminalIdentifier;
@@ -54,5 +83,38 @@ export class TaskStatusHandler {
         if (currentIcon !== newStatusIcon) {
             terminal.title.iconClass = newStatusIcon;
         }
+    }
+
+    private async handleOpenTerminals(): Promise<void> {
+        const taskTerminals = this.terminalService.all.filter(terminal => this.isTaskTerminal(terminal));
+        for (const terminal of taskTerminals) {
+            try {
+                const processId = await terminal.processId;
+                if (processId) {
+                    this.setStatus(TaskStatus.InProgress, terminal);
+                }
+            } catch (error) {
+                // an error is thrown if a terminal is not started, we are trying to get a process ID for started terminals
+            }
+        }
+    }
+
+    private subscribeOnTaskTerminalEvents(terminal: TerminalWidget): void {
+        const didOpenListener = terminal.onDidOpen(async () => {
+            this.setStatus(TaskStatus.InProgress, terminal);
+        });
+
+        const didOpenFailureListener = terminal.onDidOpenFailure(async () => {
+            this.setStatus(TaskStatus.Error, terminal);
+        });
+
+        terminal.onDidDispose(() => {
+            didOpenListener.dispose();
+            didOpenFailureListener.dispose();
+        });
+    }
+
+    private isTaskTerminal(terminal: TerminalWidget): boolean {
+        return TaskTerminalWidget.is(terminal) || RemoteTaskTerminalWidget.is(terminal);
     }
 }
