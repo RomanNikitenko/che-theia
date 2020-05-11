@@ -31,16 +31,10 @@ export class TaskConfigurationsService extends TaskService {
         const source = resolvedTask._source;
         const taskLabel = resolvedTask.label;
 
-        const startResolve = new Date().valueOf();
-
         const terminal = await this.taskTerminalWidgetManager.open(this.getFactoryOptions(resolvedTask), this.getOpenerOptions(resolvedTask));
 
         try {
             const taskInfo = await this.taskServer.run(resolvedTask, this.getContext(), option);
-
-            const finishResolve = new Date().valueOf();
-            console.error('!!!!!  CHE TASK service !!! terminal + run 9-10 ', (finishResolve - startResolve) / 1000);
-
             terminal.start(taskInfo.terminalId);
 
             this.lastTask = { source, taskLabel, scope: resolvedTask._scope };
@@ -76,7 +70,7 @@ export class TaskConfigurationsService extends TaskService {
         const taskConfig = taskInfo ? taskInfo.config : undefined;
         const widget = await this.taskTerminalWidgetManager.open(
             this.getFactoryOptions(taskConfig),
-            this.getOpenerOptions(taskConfig, taskId));
+            this.getOpenerOptions(taskConfig));
 
         widget.start(terminalId);
     }
@@ -100,7 +94,7 @@ export class TaskConfigurationsService extends TaskService {
         };
     }
 
-    protected getOpenerOptions(taskConfig?: TaskConfiguration, taskId?: number): TaskTerminalWidgetOpenerOptions {
+    protected getOpenerOptions(taskConfig?: TaskConfiguration): TaskTerminalWidgetOpenerOptions {
         return {
             widgetOptions: { area: 'bottom' },
             mode: this.getWidgetOpenMode(taskConfig),

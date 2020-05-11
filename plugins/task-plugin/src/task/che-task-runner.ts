@@ -72,9 +72,6 @@ export class CheTaskRunner {
             };
 
             const execId = await this.machineExecClient.getExecId(machineExec);
-            if (label === 'test') {
-                throw new Error("Che task config must have 'target.containerName' property specified");
-            }
 
             return {
                 taskId: STUB_TASK_ID,
