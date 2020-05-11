@@ -50,6 +50,8 @@ import { PluginFrontendViewContribution } from '@theia/plugin-ext/lib/main/brows
 import { OauthUtils } from './oauth-utils';
 import { TaskService } from '@theia/task/lib/browser';
 import { TaskConfigurationsService } from './task-config-service';
+import { CheTaskTerminalWidgetManager } from './che-task-terminal-widget-manager';
+import { TaskTerminalWidgetManager } from '@theia/task/lib/browser/task-terminal-widget-manager';
 
 export default new ContainerModule((bind, unbind, isBound, rebind) => {
     bind(CheApiProvider).toSelf().inSingletonScope();
@@ -112,4 +114,7 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
 
     bind(TaskConfigurationsService).toSelf().inSingletonScope();
     rebind(TaskService).to(TaskConfigurationsService).inSingletonScope();
+
+    bind(CheTaskTerminalWidgetManager).toSelf().inSingletonScope();
+    rebind(TaskTerminalWidgetManager).to(CheTaskTerminalWidgetManager).inSingletonScope();
 });
