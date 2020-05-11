@@ -14,8 +14,14 @@ import { CheTask, CheTaskMain, PLUGIN_RPC_CONTEXT } from '../common/che-protocol
 
 export enum TaskStatus {
     Success = 'SUCCESS',
+    InProgress = 'IN_PROGRESS',
     Error = 'ERROR',
     Unknown = 'UNKNOWN'
+}
+
+export enum TaskTerminallKind {
+    Task = 'task',
+    RemoteTask = 'remote-task'
 }
 
 export class CheTaskImpl implements CheTask {

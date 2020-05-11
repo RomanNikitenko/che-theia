@@ -58,6 +58,7 @@ export class ExecTerminalFrontendContribution extends TerminalFrontendContributi
 
     private readonly mainMenuId = 'theia:menubar';
     private editorContainerName: string | undefined;
+    private workspaceId: string | undefined;
 
     async registerCommands(registry: CommandRegistry): Promise<void> {
         const serverUrl = await this.termApiEndPointProvider();
@@ -164,10 +165,25 @@ export class ExecTerminalFrontendContribution extends TerminalFrontendContributi
         }
     }
 
-    public async newTerminalPerContainer(containerName: string, options: TerminalWidgetOptions, closeWidgetOnExitOrError: boolean = true): Promise<TerminalWidget> {
+    public async newTerminalPerContainer(containerName: string, options: TerminalWidgetOptions, closeWidgetOnExitOrError: boolean = false): Promise<TerminalWidget> {
         try {
-            const workspaceId = <string>await this.baseEnvVariablesServer.getValue('CHE_WORKSPACE_ID').then(v => v ? v.value : undefined);
+
+            const getWksId = new Date().valueOf();
+
+            const workspaceId = await this.getWorkspaceId();
+
+            const finishWksId = new Date().valueOf();
+            console.error('!!! NEW TERMINAL RESOLVE WORKSPACE  ', (finishWksId - getWksId) / 1000);
+
+            const getApi = new Date().valueOf();
+
             const termApiEndPoint = await this.termApiEndPointProvider();
+            console.error(' new terminal +++ terminal api endpoint  ', termApiEndPoint!.toString());
+
+            const finishApiID = new Date().valueOf();
+            console.error('!!! NEW TERMINAL RESOLVE API  ', (finishApiID - getApi) / 1000);
+
+            console.error('!!! MACHINE NAME  ', containerName);
 
             const widget = await this.widgetManager.getOrCreateWidget(REMOTE_TERMINAL_WIDGET_FACTORY_ID, <RemoteTerminalWidgetFactoryOptions>{
                 created: new Date().toString(),
@@ -197,6 +213,16 @@ export class ExecTerminalFrontendContribution extends TerminalFrontendContributi
         termWidget.start();
     }
 
+    protected async getWorkspaceId(): Promise<string | undefined> {
+        if (this.workspaceId) {
+            return this.workspaceId;
+        }
+
+        this.workspaceId = await this.baseEnvVariablesServer.getValue('CHE_WORKSPACE_ID').then(v => v ? v.value : undefined);
+
+        return this.workspaceId;
+    }
+
     async getEditorContainerName(): Promise<string | undefined> {
         if (!this.editorContainerName) {
             this.editorContainerName = await this.cheWorkspaceService.findEditorMachineName();
@@ -205,6 +231,7 @@ export class ExecTerminalFrontendContribution extends TerminalFrontendContributi
     }
 
     async newTerminal(options: TerminalWidgetOptions): Promise<TerminalWidget> {
+        console.error('++++++++++++++++++++++ NEW TERMINAL ', options);
         let containerName;
         let closeWidgetExitOrError: boolean = true;
 
@@ -222,7 +249,7 @@ export class ExecTerminalFrontendContribution extends TerminalFrontendContributi
                 closeWidgetExitOrError = closeWidgetOnExitOrErrorValue.toLowerCase() === 'false' ? false : true;
             }
         }
-
+        console.error('++++++++++++++++++++++ container name ', containerName);
         if (!containerName) {
             containerName = await this.getEditorContainerName();
         }

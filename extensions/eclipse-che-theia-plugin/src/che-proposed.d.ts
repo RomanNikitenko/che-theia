@@ -166,14 +166,19 @@ declare module '@eclipse-che/plugin' {
     }
 
     export interface TerminalWidgetIdentifier {
-        factoryId: string;
-        widgetId?: string;
-        processId?: number;
+        kind: TaskTerminallKind;
+        terminalId: number;
+    }
+
+    export enum TaskTerminallKind {
+        Task = 'task',
+        RemoteTask = 'remote-task'
     }
 
     export enum TaskStatus {
         Success = 'SUCCESS',
         Error = 'ERROR',
+        InProgress = 'IN_PROGRESS',
         Unknown = 'UNKNOWN'
     }
 
