@@ -115,11 +115,11 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
     bind(OauthUtils).toSelf().inSingletonScope();
 
     bind(TaskConfigurationsService).toSelf().inSingletonScope();
-    rebind(TaskService).to(TaskConfigurationsService).inSingletonScope();
+    rebind(TaskService).toService(TaskConfigurationsService);
 
     bind(CheTaskResolver).toSelf().inSingletonScope();
     bind(ContainerPicker).toSelf().inSingletonScope();
 
     bind(CheTaskTerminalWidgetManager).toSelf().inSingletonScope();
-    rebind(TaskTerminalWidgetManager).to(CheTaskTerminalWidgetManager).inSingletonScope();
+    rebind(TaskTerminalWidgetManager).toService(CheTaskTerminalWidgetManager);
 });
