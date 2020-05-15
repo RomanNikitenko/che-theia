@@ -1484,10 +1484,10 @@
   dependencies:
     type-detect "4.0.8"
 
-"@theia/application-package@1.1.0-next.66dd2bc6":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/application-package/-/application-package-1.1.0-next.66dd2bc6.tgz#2e2f16d547acbdfdba68e5d8561dad4acc4ebd84"
-  integrity sha512-PJ6ex7D/AJ2tDMWh52GH8Ocbo7WOt653dwvR6n3wpeLjIle9nCuz62KAIr2lEvALfnLyb6OIwdNs+Nk5KW4fag==
+"@theia/application-package@1.2.0-next.8ca3e645":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/application-package/-/application-package-1.2.0-next.8ca3e645.tgz#44065bcf338b18e7f7a267c6d06b0d774291e9a5"
+  integrity sha512-LjEtEFG6twv8hknKEPFqvG2GUIb9uewH97RUFB8blL568gRqDpNPWBbd/3u8zY+D+tJlz8EBM9QIrVBv9HecYw==
   dependencies:
     "@types/fs-extra" "^4.0.2"
     "@types/request" "^2.0.3"
@@ -1500,35 +1500,35 @@
     semver "^5.4.1"
     write-json-file "^2.2.0"
 
-"@theia/callhierarchy@1.1.0-next.66dd2bc6":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/callhierarchy/-/callhierarchy-1.1.0-next.66dd2bc6.tgz#da408142cc73eabbad6dc5b4ab00932e49390295"
-  integrity sha512-/J44Q740GtIVGk13m2j6f0J9E00vao40zFGUfne6RhKDe7AaTBGL6vcJcZPb4QiN5GOzIDYL/d45gUI/e6Q1pA==
+"@theia/callhierarchy@1.2.0-next.8ca3e645":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/callhierarchy/-/callhierarchy-1.2.0-next.8ca3e645.tgz#0b7f59883e6dbfca4de7a2aa32d2dfdcda46fc7e"
+  integrity sha512-M4toIMlMq24ahciXzm+ZJyXbRs+gE6aPwmBcRL57viwzLk0Jy8oq1gq+2p9x1tJSxrP+XfOmHZDL4W6LGjyavg==
   dependencies:
-    "@theia/core" "1.1.0-next.66dd2bc6"
-    "@theia/editor" "1.1.0-next.66dd2bc6"
-    "@theia/languages" "1.1.0-next.66dd2bc6"
-    "@theia/monaco" "1.1.0-next.66dd2bc6"
+    "@theia/core" "1.2.0-next.8ca3e645"
+    "@theia/editor" "1.2.0-next.8ca3e645"
+    "@theia/languages" "1.2.0-next.8ca3e645"
+    "@theia/monaco" "1.2.0-next.8ca3e645"
     ts-md5 "^1.2.2"
 
-"@theia/console@1.1.0-next.66dd2bc6":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/console/-/console-1.1.0-next.66dd2bc6.tgz#120fa508236f12ce0f9471369b0be8344de7eb89"
-  integrity sha512-BR5GmN3pewExy8DqTnTRRHscJw1mOwtojdIzDAJ+88t4E/PnT9NhDILNTD9A6EAyzg1cweUwfohiPJ3EE++SIA==
+"@theia/console@1.2.0-next.8ca3e645":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/console/-/console-1.2.0-next.8ca3e645.tgz#d3369ce239c7e00fdf68d4f6ca0a88858941fa54"
+  integrity sha512-mNtygM9vdVjKiaOqU+K+CFyDjd/b5Mw5rSLCjiHWZzL+FA4TcqNhIKkXXEFOcr7LDhCuFzEKuV0A91ZyLTG/KQ==
   dependencies:
-    "@theia/core" "1.1.0-next.66dd2bc6"
-    "@theia/monaco" "1.1.0-next.66dd2bc6"
+    "@theia/core" "1.2.0-next.8ca3e645"
+    "@theia/monaco" "1.2.0-next.8ca3e645"
     anser "^1.4.7"
 
-"@theia/core@1.1.0-next.66dd2bc6", "@theia/core@next":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/core/-/core-1.1.0-next.66dd2bc6.tgz#ab287e8f6ee8caab97dae43082cb4bf21b841fd7"
-  integrity sha512-xEo6yqsUisuT0ZbdoyxQmJ+fEdtF1KxEjQ5sB3CPhiV4bq2rGUGzMtnbmiGSQDeW5J5xxqcbnTAD1T6e5yGF3Q==
+"@theia/core@1.2.0-next.8ca3e645", "@theia/core@next":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/core/-/core-1.2.0-next.8ca3e645.tgz#1a008cd3566bc30f2f9bed926a8e5a6c294dc56d"
+  integrity sha512-MFA2/cXPnMxeATpVf1NzxGa4uGP8Y0usqMTY7Bcp9U87Gk2TwCSwzLLQdWf7DiF5EgmZA+psQTtNYeeENsAosQ==
   dependencies:
     "@babel/runtime" "^7.5.5"
     "@phosphor/widgets" "^1.9.3"
     "@primer/octicons-react" "^9.0.0"
-    "@theia/application-package" "1.1.0-next.66dd2bc6"
+    "@theia/application-package" "1.2.0-next.8ca3e645"
     "@types/body-parser" "^1.16.4"
     "@types/cookie" "^0.3.3"
     "@types/express" "^4.16.0"
@@ -1554,6 +1554,7 @@
     lodash.debounce "^4.0.8"
     lodash.throttle "^4.1.1"
     nsfw "^1.2.9"
+    p-debounce "^2.1.0"
     perfect-scrollbar "^1.3.0"
     react "^16.4.1"
     react-dom "^16.4.1"
@@ -1567,28 +1568,27 @@
     ws "^7.1.2"
     yargs "^11.1.0"
 
-"@theia/debug@1.1.0-next.66dd2bc6":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/debug/-/debug-1.1.0-next.66dd2bc6.tgz#c59d5b060ec01c31ca2d2dfa4678074cf6acce9e"
-  integrity sha512-5fy2koga6x11809Aw0+hdKzCQYqmKvGlUlnQF6YKhxnacHvtlLzN1D0yVn/t6QCZ3TLq7bAVVfZzQ/6WWs1Obw==
+"@theia/debug@1.2.0-next.8ca3e645":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/debug/-/debug-1.2.0-next.8ca3e645.tgz#b40c1289961377f68024f8930cda53b4d219c10b"
+  integrity sha512-P+AYap0DiiDrprxzNMYo/bYZRJ9I0Whldy2WnFIewOnDiF4W2Cz8Ex1CAu1b1uA4adk2mrUnfeteXPal7VN67g==
   dependencies:
-    "@theia/application-package" "1.1.0-next.66dd2bc6"
-    "@theia/console" "1.1.0-next.66dd2bc6"
-    "@theia/core" "1.1.0-next.66dd2bc6"
-    "@theia/editor" "1.1.0-next.66dd2bc6"
-    "@theia/filesystem" "1.1.0-next.66dd2bc6"
-    "@theia/languages" "1.1.0-next.66dd2bc6"
-    "@theia/markers" "1.1.0-next.66dd2bc6"
-    "@theia/monaco" "1.1.0-next.66dd2bc6"
-    "@theia/output" "1.1.0-next.66dd2bc6"
-    "@theia/preferences" "1.1.0-next.66dd2bc6"
-    "@theia/process" "1.1.0-next.66dd2bc6"
-    "@theia/task" "1.1.0-next.66dd2bc6"
-    "@theia/terminal" "1.1.0-next.66dd2bc6"
-    "@theia/userstorage" "1.1.0-next.66dd2bc6"
-    "@theia/variable-resolver" "1.1.0-next.66dd2bc6"
-    "@theia/workspace" "1.1.0-next.66dd2bc6"
-    "@types/p-debounce" "^1.0.1"
+    "@theia/application-package" "1.2.0-next.8ca3e645"
+    "@theia/console" "1.2.0-next.8ca3e645"
+    "@theia/core" "1.2.0-next.8ca3e645"
+    "@theia/editor" "1.2.0-next.8ca3e645"
+    "@theia/filesystem" "1.2.0-next.8ca3e645"
+    "@theia/languages" "1.2.0-next.8ca3e645"
+    "@theia/markers" "1.2.0-next.8ca3e645"
+    "@theia/monaco" "1.2.0-next.8ca3e645"
+    "@theia/output" "1.2.0-next.8ca3e645"
+    "@theia/preferences" "1.2.0-next.8ca3e645"
+    "@theia/process" "1.2.0-next.8ca3e645"
+    "@theia/task" "1.2.0-next.8ca3e645"
+    "@theia/terminal" "1.2.0-next.8ca3e645"
+    "@theia/userstorage" "1.2.0-next.8ca3e645"
+    "@theia/variable-resolver" "1.2.0-next.8ca3e645"
+    "@theia/workspace" "1.2.0-next.8ca3e645"
     jsonc-parser "^2.0.2"
     mkdirp "^0.5.0"
     p-debounce "^2.1.0"
@@ -1597,42 +1597,42 @@
     unzip-stream "^0.3.0"
     vscode-debugprotocol "^1.32.0"
 
-"@theia/editor@1.1.0-next.66dd2bc6":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/editor/-/editor-1.1.0-next.66dd2bc6.tgz#646d7f7a67c3beea6bd79ac1106982171b6316cf"
-  integrity sha512-DmsiE53Qy9cjnie49NN4+Pd8ocAYA+WvDc5FsCxUvZXhUwNqdZxkTZ+qqURfltXwDq9oaijAxzEv4nFIYqicNQ==
+"@theia/editor@1.2.0-next.8ca3e645":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/editor/-/editor-1.2.0-next.8ca3e645.tgz#eacd508c396e93ce6c6381366bfb8e1604aa0401"
+  integrity sha512-+jB4mhOUIveegoJs9rkEQ39R88zAsv1jqBogVVVg9gTgud/xQnKMB1B98OCZ40ntaDzJ1wnOG+6poooamYkxSg==
   dependencies:
-    "@theia/core" "1.1.0-next.66dd2bc6"
-    "@theia/languages" "1.1.0-next.66dd2bc6"
-    "@theia/variable-resolver" "1.1.0-next.66dd2bc6"
+    "@theia/core" "1.2.0-next.8ca3e645"
+    "@theia/languages" "1.2.0-next.8ca3e645"
+    "@theia/variable-resolver" "1.2.0-next.8ca3e645"
     "@types/base64-arraybuffer" "0.1.0"
     base64-arraybuffer "^0.1.5"
 
-"@theia/file-search@1.1.0-next.66dd2bc6":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/file-search/-/file-search-1.1.0-next.66dd2bc6.tgz#3ec683af56f55960f1daa30f2e000defb27e8b4d"
-  integrity sha512-Tz2trkLC2DHCIyZmWHxTBs00SwVGLZSd05zzMNjdd5lNWQi9r3vimH469pCmESSOUKbOjaDe1AqPMhVTLinlKw==
+"@theia/file-search@1.2.0-next.8ca3e645":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/file-search/-/file-search-1.2.0-next.8ca3e645.tgz#9687a80b66297b1546b8574a1b2604f0c8d8652a"
+  integrity sha512-kltvSm4qh6YZaww3pMHISzo1km7/JbY4NMwKtjgADQD1m8OqOTysL6Mg0sUzHLb3oR+Z7sy5F+S9FApb4cl3Bg==
   dependencies:
-    "@theia/core" "1.1.0-next.66dd2bc6"
-    "@theia/editor" "1.1.0-next.66dd2bc6"
-    "@theia/filesystem" "1.1.0-next.66dd2bc6"
-    "@theia/process" "1.1.0-next.66dd2bc6"
-    "@theia/workspace" "1.1.0-next.66dd2bc6"
+    "@theia/core" "1.2.0-next.8ca3e645"
+    "@theia/editor" "1.2.0-next.8ca3e645"
+    "@theia/filesystem" "1.2.0-next.8ca3e645"
+    "@theia/process" "1.2.0-next.8ca3e645"
+    "@theia/workspace" "1.2.0-next.8ca3e645"
     fuzzy "^0.1.3"
     vscode-ripgrep "^1.2.4"
 
-"@theia/filesystem@1.1.0-next.66dd2bc6":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/filesystem/-/filesystem-1.1.0-next.66dd2bc6.tgz#19e2236e871f92fc2ea5a92ac4c728ab1af1cd65"
-  integrity sha512-YtEfTLZ1CsREFTJSzOIEoNth6neeoulHx1XrPizLOK6kuC9zFOowQV7YH48Au5vnKvJJHeTk/2Vd5UM7mcT9jg==
+"@theia/filesystem@1.2.0-next.8ca3e645":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/filesystem/-/filesystem-1.2.0-next.8ca3e645.tgz#d69192852582f42e83b505e3078ea07dc4cd05a8"
+  integrity sha512-Jt5J46tgTfALYgdhvA1n/3Kwg5Ri4q0wiK1dMKBSdSvOoFjck+jeaIQGgWf3q4GXwCx7z7sFlKj6QU1h5vYmTA==
   dependencies:
-    "@theia/application-package" "1.1.0-next.66dd2bc6"
-    "@theia/core" "1.1.0-next.66dd2bc6"
+    "@theia/application-package" "1.2.0-next.8ca3e645"
+    "@theia/core" "1.2.0-next.8ca3e645"
     "@types/body-parser" "^1.17.0"
     "@types/rimraf" "^2.0.2"
     "@types/tar-fs" "^1.16.1"
     "@types/touch" "0.0.1"
-    "@types/uuid" "^3.4.3"
+    "@types/uuid" "^7.0.3"
     body-parser "^1.18.3"
     drivelist "^6.4.3"
     http-status-codes "^1.3.0"
@@ -1644,52 +1644,52 @@
     tar-fs "^1.16.2"
     touch "^3.1.0"
     trash "^4.0.1"
-    uuid "^3.2.1"
+    uuid "^8.0.0"
     zip-dir "^1.0.2"
 
-"@theia/languages@1.1.0-next.66dd2bc6":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/languages/-/languages-1.1.0-next.66dd2bc6.tgz#d45c20c7ec4b94d8912a35331f5ae7c41ca2be61"
-  integrity sha512-wpAaj7iRzv2Udp41x6cmshr6FxzO1x8AfvSUEZZ4W7U0Om7EmR+/FVhDiBrOAwEeovd9g8skkBJx02zkA8Sm5w==
+"@theia/languages@1.2.0-next.8ca3e645":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/languages/-/languages-1.2.0-next.8ca3e645.tgz#fe8e6529219505191908a8a6d6b7ba3460c96454"
+  integrity sha512-romGEmMOWGuxuunbGGSjiZw6LiNdOwk0NrvL5JpboI0qv1JqNZULKb0OgVjfCxQP2Fs0qMsfcHl+cA98euBZvg==
   dependencies:
-    "@theia/application-package" "1.1.0-next.66dd2bc6"
-    "@theia/core" "1.1.0-next.66dd2bc6"
+    "@theia/application-package" "1.2.0-next.8ca3e645"
+    "@theia/core" "1.2.0-next.8ca3e645"
     "@theia/monaco-editor-core" "^0.19.3"
-    "@theia/output" "1.1.0-next.66dd2bc6"
-    "@theia/process" "1.1.0-next.66dd2bc6"
-    "@theia/workspace" "1.1.0-next.66dd2bc6"
-    "@types/uuid" "^3.4.3"
+    "@theia/output" "1.2.0-next.8ca3e645"
+    "@theia/process" "1.2.0-next.8ca3e645"
+    "@theia/workspace" "1.2.0-next.8ca3e645"
+    "@types/uuid" "^7.0.3"
     monaco-languageclient "^0.13.0"
-    uuid "^3.2.1"
+    uuid "^8.0.0"
 
-"@theia/markers@1.1.0-next.66dd2bc6":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/markers/-/markers-1.1.0-next.66dd2bc6.tgz#b2a1547f24bf6b5ae9e17a8b5749ae8e9122fa18"
-  integrity sha512-xHVejTr91X7b+v8UsGliorceMCT/6C7oTh78zL183shPEcMNmYb7TqaLe4ZZIpVvsm96/qR4nle+Q4pnDZ6jPA==
+"@theia/markers@1.2.0-next.8ca3e645":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/markers/-/markers-1.2.0-next.8ca3e645.tgz#dea9c520f6d81105bdcb5fec4a8e6c7c8cb5337f"
+  integrity sha512-+TMhD/g7+df8SAFFcn9roxYNp3JzuHshVpJ7qZj5Q3xj0N6vZvZx+zCmyfzJjKIcAEcU5tcgKIp4DMhUK2ceFQ==
   dependencies:
-    "@theia/core" "1.1.0-next.66dd2bc6"
-    "@theia/filesystem" "1.1.0-next.66dd2bc6"
-    "@theia/navigator" "1.1.0-next.66dd2bc6"
-    "@theia/workspace" "1.1.0-next.66dd2bc6"
+    "@theia/core" "1.2.0-next.8ca3e645"
+    "@theia/filesystem" "1.2.0-next.8ca3e645"
+    "@theia/navigator" "1.2.0-next.8ca3e645"
+    "@theia/workspace" "1.2.0-next.8ca3e645"
 
-"@theia/messages@1.1.0-next.66dd2bc6":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/messages/-/messages-1.1.0-next.66dd2bc6.tgz#e670e7520b597745d3dbeafa8253255aef87b95b"
-  integrity sha512-FcebmI8PyNpKVxCSEffaKO0uNeYTpUBhLm2epXRp3msJNXscZUKI7xL6OAMJN9UtUMAbzN2PCQE2C15lQaFZCw==
+"@theia/messages@1.2.0-next.8ca3e645":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/messages/-/messages-1.2.0-next.8ca3e645.tgz#c99438e1086d18e1b87d51e0eca4adf01237b0b1"
+  integrity sha512-dVnJUkysmLmKV6aT8qZbQgNDLoDyky7VWyhRI6ADsqwnlwBJpcMFTtsTIxrsbB/oaPignSzj8doC1ZR5LZJvKQ==
   dependencies:
-    "@theia/core" "1.1.0-next.66dd2bc6"
+    "@theia/core" "1.2.0-next.8ca3e645"
     lodash.throttle "^4.1.1"
     markdown-it "^8.4.0"
     react-perfect-scrollbar "^1.5.3"
     ts-md5 "^1.2.2"
 
 "@theia/mini-browser@next":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/mini-browser/-/mini-browser-1.1.0-next.66dd2bc6.tgz#ce1be01e3e9aa79e81e074ac8a5478b95f9b1a7b"
-  integrity sha512-9SkTDQVEjnS1/dozef2WlVWZOZny026MTwDtISG8veKMzGaSHbsDcj3KNQ9aVcNknnbvQO9/zm89GX3kaVefwA==
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/mini-browser/-/mini-browser-1.2.0-next.8ca3e645.tgz#63453467175c367003f9da7d9a3ba469032475a4"
+  integrity sha512-rTK4NjVgIX/XxUUbC43t4DUvCCT/PYCDnhWfKtI277mSq4hGJvjy+sSkA0+DzHw8953uWOT4FsuXiS9wh9sY7A==
   dependencies:
-    "@theia/core" "1.1.0-next.66dd2bc6"
-    "@theia/filesystem" "1.1.0-next.66dd2bc6"
+    "@theia/core" "1.2.0-next.8ca3e645"
+    "@theia/filesystem" "1.2.0-next.8ca3e645"
     "@types/mime-types" "^2.1.0"
     mime-types "^2.1.18"
     pdfobject "^2.0.201604172"
@@ -1699,18 +1699,18 @@
   resolved "https://registry.yarnpkg.com/@theia/monaco-editor-core/-/monaco-editor-core-0.19.3.tgz#8456aaa52f4cdc87c78697a0edfcccb9696a374d"
   integrity sha512-+2I5pvbK9qxWs+bLFUwto8nYubyI759/p0z86r2w0HnFdcMQ6rcqvcTupO/Cd/YAJ1/IU38PBWS7hwIoVnvCsQ==
 
-"@theia/monaco@1.1.0-next.66dd2bc6":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/monaco/-/monaco-1.1.0-next.66dd2bc6.tgz#56c22b31b7dd9189ae58b24fdfcc425d4b69e2fa"
-  integrity sha512-hmdQexazO3dNamFzqkUueFWXY3JucX4fira9qXxYnYrMJqTyiGbNVBuOCh/DwcG6CxfVOiSeNVaj/IBUGvzLFQ==
+"@theia/monaco@1.2.0-next.8ca3e645":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/monaco/-/monaco-1.2.0-next.8ca3e645.tgz#aff2965cc2f04516e4fa88524c48e022c348d2a4"
+  integrity sha512-GGmCNOWWt5bgJTp0a15FN0u5W1VjSQviQPnFc7xog28qp8IOED3Cfh9eRPNGBBg84VAYGN9tbq0lzaj06uiLgQ==
   dependencies:
-    "@theia/core" "1.1.0-next.66dd2bc6"
-    "@theia/editor" "1.1.0-next.66dd2bc6"
-    "@theia/filesystem" "1.1.0-next.66dd2bc6"
-    "@theia/languages" "1.1.0-next.66dd2bc6"
-    "@theia/markers" "1.1.0-next.66dd2bc6"
-    "@theia/outline-view" "1.1.0-next.66dd2bc6"
-    "@theia/workspace" "1.1.0-next.66dd2bc6"
+    "@theia/core" "1.2.0-next.8ca3e645"
+    "@theia/editor" "1.2.0-next.8ca3e645"
+    "@theia/filesystem" "1.2.0-next.8ca3e645"
+    "@theia/languages" "1.2.0-next.8ca3e645"
+    "@theia/markers" "1.2.0-next.8ca3e645"
+    "@theia/outline-view" "1.2.0-next.8ca3e645"
+    "@theia/workspace" "1.2.0-next.8ca3e645"
     deepmerge "2.0.1"
     fast-plist "^0.1.2"
     idb "^4.0.5"
@@ -1720,14 +1720,14 @@
     onigasm "^2.2.0"
     vscode-textmate "^4.0.1"
 
-"@theia/navigator@1.1.0-next.66dd2bc6":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/navigator/-/navigator-1.1.0-next.66dd2bc6.tgz#8d5b8bf0019c0e392f0be1478d02cbe84c841ca1"
-  integrity sha512-tfszt3r/6ZWyvWD9Cao12e17X1zogUSqwn5rRfxH5ydG3N9TH4vP8Q2mQifUwEqxk32fkNzJceWj95s7v27lJA==
+"@theia/navigator@1.2.0-next.8ca3e645":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/navigator/-/navigator-1.2.0-next.8ca3e645.tgz#c7fe089403ca43c066b3205ae7cf7f742975fb91"
+  integrity sha512-/H5ombawVKcYj15flKHVs5f338FxG1cxHiHenf0b/YWQrv/Qgxv322e9tof8jSD+ENC5IKoAaHe7h1U7onGM4Q==
   dependencies:
-    "@theia/core" "1.1.0-next.66dd2bc6"
-    "@theia/filesystem" "1.1.0-next.66dd2bc6"
-    "@theia/workspace" "1.1.0-next.66dd2bc6"
+    "@theia/core" "1.2.0-next.8ca3e645"
+    "@theia/filesystem" "1.2.0-next.8ca3e645"
+    "@theia/workspace" "1.2.0-next.8ca3e645"
     fuzzy "^0.1.3"
     minimatch "^3.0.4"
 
@@ -1738,80 +1738,80 @@
   dependencies:
     nan "^2.14.0"
 
-"@theia/outline-view@1.1.0-next.66dd2bc6":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/outline-view/-/outline-view-1.1.0-next.66dd2bc6.tgz#de682f70e2033c820e9fbcd17ff76f24198f844a"
-  integrity sha512-P5AwZcVtU24PaWo36+7Nlxy4z9w/wbbUeOaNjnq5oBRMKwv+Evk2pl8Pf4mWS+AQuGcE8jSUj/rjr68rYtNE9w==
+"@theia/outline-view@1.2.0-next.8ca3e645":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/outline-view/-/outline-view-1.2.0-next.8ca3e645.tgz#162d675dc337a82df44046145a53dd7652c0b8c2"
+  integrity sha512-OYv2Qnj2OuuAFnPyy8oSmJlC60nd/zZNcgpqTToZ140UAZXd+VtNleQewWEufjCzoNQwSZxIXwELlYuk6pPjxw==
   dependencies:
-    "@theia/core" "1.1.0-next.66dd2bc6"
+    "@theia/core" "1.2.0-next.8ca3e645"
 
-"@theia/output@1.1.0-next.66dd2bc6":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/output/-/output-1.1.0-next.66dd2bc6.tgz#f0540e2ce2b151ff42f37460efb146b6e2f7f2a9"
-  integrity sha512-2r5hanS6EySIrC6NPDLOXpZmUZKrgn1mpcWuMtgNEdiBPu09nVHrnVy49oQVa6i4cHiW6D1IX300y+yzYtSMKg==
+"@theia/output@1.2.0-next.8ca3e645":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/output/-/output-1.2.0-next.8ca3e645.tgz#a114c481774a5b5092a9508470e2aeb3be94ca2e"
+  integrity sha512-1lzmFDMjrTmMrNG0ZDG6ZebpTNjS3d8fvDMYXKxbIVmy8Gr9eAkUoLHbLHmSjXqiCSAE+O74ozBr999bDXfFnw==
   dependencies:
-    "@theia/core" "1.1.0-next.66dd2bc6"
+    "@theia/core" "1.2.0-next.8ca3e645"
 
 "@theia/plugin-dev@next":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/plugin-dev/-/plugin-dev-1.1.0-next.66dd2bc6.tgz#a94200a68fb8e7d8bae86bb06067c677fb9f02aa"
-  integrity sha512-FMuPJd1Zuy2nkfJx7YTa76FGY5FyQ1k96987Y9B5Ciw49xQlmFJsrFasrdHdbA3A4+wynirTMiGiOxGVT1MJqA==
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/plugin-dev/-/plugin-dev-1.2.0-next.8ca3e645.tgz#0dd809c41fee6f85951cf6b9fa84a664985fe16f"
+  integrity sha512-5mfsMXXV7ycQMkkGZI3PemlcCvsDKYWruMtkJLPo9PGbC0xW2CykitE0veUeJjNDXeAYmKzsPtzTo8J3Bcbhdg==
   dependencies:
-    "@theia/core" "1.1.0-next.66dd2bc6"
-    "@theia/debug" "1.1.0-next.66dd2bc6"
-    "@theia/filesystem" "1.1.0-next.66dd2bc6"
-    "@theia/output" "1.1.0-next.66dd2bc6"
-    "@theia/plugin-ext" "1.1.0-next.66dd2bc6"
-    "@theia/preferences" "1.1.0-next.66dd2bc6"
-    "@theia/workspace" "1.1.0-next.66dd2bc6"
+    "@theia/core" "1.2.0-next.8ca3e645"
+    "@theia/debug" "1.2.0-next.8ca3e645"
+    "@theia/filesystem" "1.2.0-next.8ca3e645"
+    "@theia/output" "1.2.0-next.8ca3e645"
+    "@theia/plugin-ext" "1.2.0-next.8ca3e645"
+    "@theia/preferences" "1.2.0-next.8ca3e645"
+    "@theia/workspace" "1.2.0-next.8ca3e645"
     "@types/request" "^2.0.3"
     ps-tree "^1.2.0"
     request "^2.82.0"
 
 "@theia/plugin-ext-vscode@next":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/plugin-ext-vscode/-/plugin-ext-vscode-1.1.0-next.66dd2bc6.tgz#3e1a9e87905765a8d4a59f0455452a785883c754"
-  integrity sha512-H5ETr11M2Q/+tVjBHhzbwpAe62aT3nbXCSCKkaQ+HwG2EHOjn/Gy9KAx4CgiV/hJD65jg3ttFekUbtBLLYcQXQ==
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/plugin-ext-vscode/-/plugin-ext-vscode-1.2.0-next.8ca3e645.tgz#239554b7afeee7f10035aab3d64f99567913d30c"
+  integrity sha512-OEmHd2cdLckBM9KTXY5WcngND4qt/yls6Q2lx4hAk6rlZauZfIV3spAMlunH5wE2hKAY5c29bHwgKb1gVNogJQ==
   dependencies:
-    "@theia/core" "1.1.0-next.66dd2bc6"
-    "@theia/editor" "1.1.0-next.66dd2bc6"
-    "@theia/monaco" "1.1.0-next.66dd2bc6"
-    "@theia/plugin" "1.1.0-next.66dd2bc6"
-    "@theia/plugin-ext" "1.1.0-next.66dd2bc6"
-    "@theia/workspace" "1.1.0-next.66dd2bc6"
+    "@theia/core" "1.2.0-next.8ca3e645"
+    "@theia/editor" "1.2.0-next.8ca3e645"
+    "@theia/monaco" "1.2.0-next.8ca3e645"
+    "@theia/plugin" "1.2.0-next.8ca3e645"
+    "@theia/plugin-ext" "1.2.0-next.8ca3e645"
+    "@theia/workspace" "1.2.0-next.8ca3e645"
     "@types/request" "^2.0.3"
     filenamify "^4.1.0"
     request "^2.82.0"
 
-"@theia/plugin-ext@1.1.0-next.66dd2bc6", "@theia/plugin-ext@next":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/plugin-ext/-/plugin-ext-1.1.0-next.66dd2bc6.tgz#6a98f5a2a76f01b62da4787a7883c8262d08ed64"
-  integrity sha512-nmU9G6nX+Lv+Cx9NCYVIadAAew9vgJ3dv5epf0sNgJ2TTHXLZ+ApBVGI2tS1JWh8JoXeIW7qo3Zmc3C0F+5Ckg==
+"@theia/plugin-ext@1.2.0-next.8ca3e645", "@theia/plugin-ext@next":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/plugin-ext/-/plugin-ext-1.2.0-next.8ca3e645.tgz#dd9bb4fd989d3a809cddfc9223b80ecc6da13095"
+  integrity sha512-RQCmMIZWSUpHi9PJtPOIsERU9PyhTen2rU+nigtlzqxZ1W/ghfB7qLhAGcxsl6E6M7pqcO6dRviANp1p6AZ/iA==
   dependencies:
-    "@theia/callhierarchy" "1.1.0-next.66dd2bc6"
-    "@theia/core" "1.1.0-next.66dd2bc6"
-    "@theia/debug" "1.1.0-next.66dd2bc6"
-    "@theia/editor" "1.1.0-next.66dd2bc6"
-    "@theia/file-search" "1.1.0-next.66dd2bc6"
-    "@theia/filesystem" "1.1.0-next.66dd2bc6"
-    "@theia/languages" "1.1.0-next.66dd2bc6"
-    "@theia/markers" "1.1.0-next.66dd2bc6"
-    "@theia/messages" "1.1.0-next.66dd2bc6"
-    "@theia/monaco" "1.1.0-next.66dd2bc6"
-    "@theia/navigator" "1.1.0-next.66dd2bc6"
-    "@theia/output" "1.1.0-next.66dd2bc6"
-    "@theia/plugin" "1.1.0-next.66dd2bc6"
-    "@theia/preferences" "1.1.0-next.66dd2bc6"
-    "@theia/scm" "1.1.0-next.66dd2bc6"
-    "@theia/search-in-workspace" "1.1.0-next.66dd2bc6"
-    "@theia/task" "1.1.0-next.66dd2bc6"
-    "@theia/terminal" "1.1.0-next.66dd2bc6"
-    "@theia/workspace" "1.1.0-next.66dd2bc6"
+    "@theia/callhierarchy" "1.2.0-next.8ca3e645"
+    "@theia/core" "1.2.0-next.8ca3e645"
+    "@theia/debug" "1.2.0-next.8ca3e645"
+    "@theia/editor" "1.2.0-next.8ca3e645"
+    "@theia/file-search" "1.2.0-next.8ca3e645"
+    "@theia/filesystem" "1.2.0-next.8ca3e645"
+    "@theia/languages" "1.2.0-next.8ca3e645"
+    "@theia/markers" "1.2.0-next.8ca3e645"
+    "@theia/messages" "1.2.0-next.8ca3e645"
+    "@theia/monaco" "1.2.0-next.8ca3e645"
+    "@theia/navigator" "1.2.0-next.8ca3e645"
+    "@theia/output" "1.2.0-next.8ca3e645"
+    "@theia/plugin" "1.2.0-next.8ca3e645"
+    "@theia/preferences" "1.2.0-next.8ca3e645"
+    "@theia/scm" "1.2.0-next.8ca3e645"
+    "@theia/search-in-workspace" "1.2.0-next.8ca3e645"
+    "@theia/task" "1.2.0-next.8ca3e645"
+    "@theia/terminal" "1.2.0-next.8ca3e645"
+    "@theia/workspace" "1.2.0-next.8ca3e645"
     "@types/connect" "^3.4.32"
     "@types/mime" "^2.0.1"
     "@types/serve-static" "^1.13.3"
     connect "^3.7.0"
-    decompress "^4.2.0"
+    decompress "4.2.0"
     escape-html "^1.0.3"
     filenamify "^4.1.0"
     jsonc-parser "^2.0.2"
@@ -1821,7 +1821,7 @@
     ps-tree "^1.2.0"
     request "^2.82.0"
     serve-static "^1.14.1"
-    uuid "^3.2.1"
+    uuid "^8.0.0"
     vhost "^3.0.2"
     vscode-debugprotocol "^1.32.0"
     vscode-textmate "^4.0.1"
@@ -1839,121 +1839,120 @@
     read-pkg "4.0.1"
     yargs "12.0.1"
 
-"@theia/plugin@1.1.0-next.66dd2bc6", "@theia/plugin@next":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/plugin/-/plugin-1.1.0-next.66dd2bc6.tgz#f23f1bbaaa1991d1b38a089d0bc042f4337439ad"
-  integrity sha512-RJEB3elS7o84lud6ycSHdd6Pc9v8gEXagRjK/8v7bIWKedRLS5gz1Y7T7Oa64wi6e6z9YmKklK/nXwME/9Y13w==
+"@theia/plugin@1.2.0-next.8ca3e645", "@theia/plugin@next":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/plugin/-/plugin-1.2.0-next.8ca3e645.tgz#619522f0ed34af6135690803e87bbe4bedafadc8"
+  integrity sha512-UCOrObIidVhB8RopKS13ocfVKI/BWlsoRTkkvqrPepV/pJrBZDYcuGwWPCKErVEt68wkwve20yK0/+sp2+FElw==
 
-"@theia/preferences@1.1.0-next.66dd2bc6", "@theia/preferences@next":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/preferences/-/preferences-1.1.0-next.66dd2bc6.tgz#c2e6ef0a2a88da2f1fc110b0ad6dd378c9750d48"
-  integrity sha512-zeGtwklz9zPW2jL+bdpukBI7UxReVJozYWgYvTMpGUSHX7tvcRluCHhIeL3xc3rt+kg3W+6LGLWybE+5kTXCHg==
+"@theia/preferences@1.2.0-next.8ca3e645", "@theia/preferences@next":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/preferences/-/preferences-1.2.0-next.8ca3e645.tgz#f3fe2a7907cd19c4e6a27a36a32f2e79d5ac40ec"
+  integrity sha512-asZZSfy9F29jIdHpLGDFYFaQxkRxd2sMeKiU86ojWQ7r/k3IYKsiLlGNf5zzChX/xgGCciDJdiNFuHXa7nokPQ==
   dependencies:
-    "@theia/core" "1.1.0-next.66dd2bc6"
-    "@theia/editor" "1.1.0-next.66dd2bc6"
-    "@theia/filesystem" "1.1.0-next.66dd2bc6"
-    "@theia/monaco" "1.1.0-next.66dd2bc6"
-    "@theia/userstorage" "1.1.0-next.66dd2bc6"
-    "@theia/workspace" "1.1.0-next.66dd2bc6"
+    "@theia/core" "1.2.0-next.8ca3e645"
+    "@theia/editor" "1.2.0-next.8ca3e645"
+    "@theia/filesystem" "1.2.0-next.8ca3e645"
+    "@theia/monaco" "1.2.0-next.8ca3e645"
+    "@theia/userstorage" "1.2.0-next.8ca3e645"
+    "@theia/workspace" "1.2.0-next.8ca3e645"
     jsonc-parser "^2.0.2"
 
-"@theia/process@1.1.0-next.66dd2bc6":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/process/-/process-1.1.0-next.66dd2bc6.tgz#0b51b821d1e66a149b558768f950927f3cb26f37"
-  integrity sha512-BBoo97fDseCh2yHbqmG217W4s9Pshgc3QtgfGH2K3ewLWveEyMyLscmTTOAdcUKCMqFHlJ+GIptFLFFXJjCL0A==
+"@theia/process@1.2.0-next.8ca3e645":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/process/-/process-1.2.0-next.8ca3e645.tgz#4c91d1b77d2c84dfbdca0c0ec72ff99e69b71067"
+  integrity sha512-rRxrE7VoCldlgnbhgXFytHU6FUmHBELpfQ9kOag1hys3RJODsPBJMEA0jRdAzlBXwCv1WkjH640tMRZXCtdgeA==
   dependencies:
-    "@theia/core" "1.1.0-next.66dd2bc6"
+    "@theia/core" "1.2.0-next.8ca3e645"
     "@theia/node-pty" "0.9.0-theia.6"
     string-argv "^0.1.1"
 
-"@theia/scm@1.1.0-next.66dd2bc6":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/scm/-/scm-1.1.0-next.66dd2bc6.tgz#f85abfbfddfaae0bf34bcbe3b9008b9f220810da"
-  integrity sha512-0vS5mMq9AtFpWin0e4UxXQsqvcn1P5IJssC6t7X1MDjVykD+j7HffI85G57MVcQ2s38hlFzw9VTSt4TtXL7p/g==
+"@theia/scm@1.2.0-next.8ca3e645":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/scm/-/scm-1.2.0-next.8ca3e645.tgz#3a7526adedf7ab69a8d7ad02de493b1f5fe5a206"
+  integrity sha512-VLg6RJI+zyotrGMyt57aNMi3C9fh/rfRcrGP0UHssn/kt/RyJoh7DykTWlFcyKV2g/bNeJaqXNaWFzltMPTIKg==
   dependencies:
-    "@theia/core" "1.1.0-next.66dd2bc6"
-    "@theia/editor" "1.1.0-next.66dd2bc6"
-    "@theia/filesystem" "1.1.0-next.66dd2bc6"
-    "@theia/navigator" "1.1.0-next.66dd2bc6"
+    "@theia/core" "1.2.0-next.8ca3e645"
+    "@theia/editor" "1.2.0-next.8ca3e645"
+    "@theia/filesystem" "1.2.0-next.8ca3e645"
+    "@theia/navigator" "1.2.0-next.8ca3e645"
     "@types/diff" "^3.2.2"
-    "@types/p-debounce" "^1.0.1"
     diff "^3.4.0"
     p-debounce "^2.1.0"
     react-autosize-textarea "^7.0.0"
     ts-md5 "^1.2.2"
 
-"@theia/search-in-workspace@1.1.0-next.66dd2bc6":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/search-in-workspace/-/search-in-workspace-1.1.0-next.66dd2bc6.tgz#0a8e0ad0cad9c41687b3dab4bbdfee0311dcce5f"
-  integrity sha512-hdhDdYcAP8mioyynp18lH/03XphuKp/JMrnoE7UnqiOEInIVtIWmKrksyhZ2dhwqaofdl7GUgrgMSF/MCDG/gg==
+"@theia/search-in-workspace@1.2.0-next.8ca3e645":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/search-in-workspace/-/search-in-workspace-1.2.0-next.8ca3e645.tgz#4fc32ecf60767cbfccbb1ad18e4090c3b9b8e533"
+  integrity sha512-SEPv/PVKMQQWGWAAVsvwjORc3fFg3gbkjVVqDvZGz6MNKzluVVRvoD8BDcYoxxF88gPJBAfwIc91pwmWbFpyyg==
   dependencies:
-    "@theia/core" "1.1.0-next.66dd2bc6"
-    "@theia/editor" "1.1.0-next.66dd2bc6"
-    "@theia/filesystem" "1.1.0-next.66dd2bc6"
-    "@theia/navigator" "1.1.0-next.66dd2bc6"
-    "@theia/process" "1.1.0-next.66dd2bc6"
-    "@theia/workspace" "1.1.0-next.66dd2bc6"
+    "@theia/core" "1.2.0-next.8ca3e645"
+    "@theia/editor" "1.2.0-next.8ca3e645"
+    "@theia/filesystem" "1.2.0-next.8ca3e645"
+    "@theia/navigator" "1.2.0-next.8ca3e645"
+    "@theia/process" "1.2.0-next.8ca3e645"
+    "@theia/workspace" "1.2.0-next.8ca3e645"
     vscode-ripgrep "^1.2.4"
 
-"@theia/task@1.1.0-next.66dd2bc6", "@theia/task@next":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/task/-/task-1.1.0-next.66dd2bc6.tgz#dd7a7197311eec74bbbb00fa505ca8c2c246d5b8"
-  integrity sha512-5G54yT3RPOQmjBwLDKTcLLoG1Tpfa/xq8ciUDX4+Sl4xUk0jg3jL5756Li2lhptgYnYWTm3TkKsRB4OF+J1I/A==
+"@theia/task@1.2.0-next.8ca3e645", "@theia/task@next":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/task/-/task-1.2.0-next.8ca3e645.tgz#f3b5730d470f4a334ba616c20a2747637b75817d"
+  integrity sha512-3B+0T2yr6+8RNOVBoIq9Sjtg2gZA5atc29oxpXEaDui3s9dfhxjGKv5+UeHyTWHmED4xul0IyBQs/Q7+pQ1c5g==
   dependencies:
-    "@theia/core" "1.1.0-next.66dd2bc6"
-    "@theia/editor" "1.1.0-next.66dd2bc6"
-    "@theia/filesystem" "1.1.0-next.66dd2bc6"
-    "@theia/markers" "1.1.0-next.66dd2bc6"
-    "@theia/monaco" "1.1.0-next.66dd2bc6"
-    "@theia/preferences" "1.1.0-next.66dd2bc6"
-    "@theia/process" "1.1.0-next.66dd2bc6"
-    "@theia/terminal" "1.1.0-next.66dd2bc6"
-    "@theia/variable-resolver" "1.1.0-next.66dd2bc6"
-    "@theia/workspace" "1.1.0-next.66dd2bc6"
+    "@theia/core" "1.2.0-next.8ca3e645"
+    "@theia/editor" "1.2.0-next.8ca3e645"
+    "@theia/filesystem" "1.2.0-next.8ca3e645"
+    "@theia/markers" "1.2.0-next.8ca3e645"
+    "@theia/monaco" "1.2.0-next.8ca3e645"
+    "@theia/preferences" "1.2.0-next.8ca3e645"
+    "@theia/process" "1.2.0-next.8ca3e645"
+    "@theia/terminal" "1.2.0-next.8ca3e645"
+    "@theia/variable-resolver" "1.2.0-next.8ca3e645"
+    "@theia/workspace" "1.2.0-next.8ca3e645"
     ajv "^6.5.3"
     jsonc-parser "^2.0.2"
     p-debounce "^2.1.0"
 
-"@theia/terminal@1.1.0-next.66dd2bc6", "@theia/terminal@next":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/terminal/-/terminal-1.1.0-next.66dd2bc6.tgz#dd8c44174510f77f470da14a06d9a952c7768075"
-  integrity sha512-WQ+MtTtdZ9X2SKLlDvKullcrwBMlMvJ19A3wtclGQgptiwchBSd1gLiySZzY0I0SJbOaRjVyppnSSr+8x3ODgw==
+"@theia/terminal@1.2.0-next.8ca3e645", "@theia/terminal@next":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/terminal/-/terminal-1.2.0-next.8ca3e645.tgz#81ad28aa857790878bddf9a2a85c43726ed0337b"
+  integrity sha512-rU2QRSaTRsTKzM43HfREgTtOE+V1PZLZIT7xsSx32/nEkiKPuw9jINXaOd3yrXXwIAFhd5TPFH9UZqaecEK+rQ==
   dependencies:
-    "@theia/core" "1.1.0-next.66dd2bc6"
-    "@theia/editor" "1.1.0-next.66dd2bc6"
-    "@theia/filesystem" "1.1.0-next.66dd2bc6"
-    "@theia/process" "1.1.0-next.66dd2bc6"
-    "@theia/workspace" "1.1.0-next.66dd2bc6"
+    "@theia/core" "1.2.0-next.8ca3e645"
+    "@theia/editor" "1.2.0-next.8ca3e645"
+    "@theia/filesystem" "1.2.0-next.8ca3e645"
+    "@theia/process" "1.2.0-next.8ca3e645"
+    "@theia/workspace" "1.2.0-next.8ca3e645"
     xterm "^4.4.0"
     xterm-addon-fit "^0.3.0"
     xterm-addon-search "^0.5.0"
 
-"@theia/userstorage@1.1.0-next.66dd2bc6":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/userstorage/-/userstorage-1.1.0-next.66dd2bc6.tgz#6b378e6d1f0a0895684dfc66264135d65f53ef9a"
-  integrity sha512-bf/78KsoFilIevM/jU+E1hFkJsrNgvQroiS5jwPrmG4A6C0M89SJEzWLduTrCdZxFCAiz7BgR3vkluNSB2pHQg==
+"@theia/userstorage@1.2.0-next.8ca3e645":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/userstorage/-/userstorage-1.2.0-next.8ca3e645.tgz#b251d1b0f822481cf639f43e065d1ebaf81162bd"
+  integrity sha512-Iyh+7HPUkXwHGFZSH/C563cMdWZdwiT+sMUeTtWWW/aQZlXkgi+R7EfGg6ABXN7NDI2GrL/OC2S/igZ+YT9aVA==
   dependencies:
-    "@theia/core" "1.1.0-next.66dd2bc6"
-    "@theia/filesystem" "1.1.0-next.66dd2bc6"
+    "@theia/core" "1.2.0-next.8ca3e645"
+    "@theia/filesystem" "1.2.0-next.8ca3e645"
 
-"@theia/variable-resolver@1.1.0-next.66dd2bc6":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/variable-resolver/-/variable-resolver-1.1.0-next.66dd2bc6.tgz#10b8b512cd1b5fba61315d9fde75ecdc5a816bfe"
-  integrity sha512-fmcurJeSvfPam45+bSjwOx6EVQvtDrfJ4mzo9507xTfwPex60Aom2ghVsoAc/2ttf1KYv2k5RlHOnIFHNR51LQ==
+"@theia/variable-resolver@1.2.0-next.8ca3e645":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/variable-resolver/-/variable-resolver-1.2.0-next.8ca3e645.tgz#110eede37f9ef56d34593fa9da8fe78b9aad1e20"
+  integrity sha512-4cwy0jBtGIEPnNWeMQO35J8keV3CLfjZWPAlYuKvr4kvdzHT9i8a3HMOqGwoDcJL1obeId6+KPLHSxPbwlRrQA==
   dependencies:
-    "@theia/core" "1.1.0-next.66dd2bc6"
+    "@theia/core" "1.2.0-next.8ca3e645"
 
-"@theia/workspace@1.1.0-next.66dd2bc6", "@theia/workspace@next":
-  version "1.1.0-next.66dd2bc6"
-  resolved "https://registry.yarnpkg.com/@theia/workspace/-/workspace-1.1.0-next.66dd2bc6.tgz#0b1279bb3d7711e79073ab2f5dfd953c8287a4c8"
-  integrity sha512-2OAuMJTpXqecnb17H1lKi9lveNHkgKFvpeJYaQuaONuqWGErV01MrJARnc4SouNDZXqCxAwZsjNKkWmkT6qsdg==
+"@theia/workspace@1.2.0-next.8ca3e645", "@theia/workspace@next":
+  version "1.2.0-next.8ca3e645"
+  resolved "https://registry.yarnpkg.com/@theia/workspace/-/workspace-1.2.0-next.8ca3e645.tgz#674d60ab7c255a03d1d3ac9eebabcfe3ccfdf09b"
+  integrity sha512-grHl387/18zY2hG2IJ/slPyBSWWPYy/WvzGME6o/tSGyJw9U3i397k5o+cu79UZmQ/pU/VXLtj6OnoQK3M9ydg==
   dependencies:
-    "@theia/core" "1.1.0-next.66dd2bc6"
-    "@theia/filesystem" "1.1.0-next.66dd2bc6"
-    "@theia/variable-resolver" "1.1.0-next.66dd2bc6"
+    "@theia/core" "1.2.0-next.8ca3e645"
+    "@theia/filesystem" "1.2.0-next.8ca3e645"
+    "@theia/variable-resolver" "1.2.0-next.8ca3e645"
     ajv "^6.5.3"
     jsonc-parser "^2.0.2"
-    moment "^2.21.0"
+    moment "2.24.0"
     valid-filename "^2.0.1"
 
 "@types/anymatch@*":
@@ -2202,13 +2201,6 @@
   resolved "https://registry.yarnpkg.com/@types/normalize-package-data/-/normalize-package-data-2.4.0.tgz#e486d0d97396d79beedd0a6e33f4534ff6b4973e"
   integrity sha512-f5j5b/Gf71L+dbqxIpQ4Z2WlmI/mPJ0fOkGGmFgtb6sAu97EPczzbS3/tJKxmcYDj55OX6ssqwDAWOHIYDRDGA==
 
-"@types/p-debounce@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@types/p-debounce/-/p-debounce-1.0.1.tgz#c9956067a240dffedf2682a24d0712ffa5e3c8fe"
-  integrity sha512-zlAn04fH4cGYPAjmYW8Tst/vxn78IJmD3PVMxxBnl3IYAG+9aGKWCu/311fPHnePJMwyxGeOhi63neSiSgM+iw==
-  dependencies:
-    p-debounce "*"
-
 "@types/prettier@^1.19.0":
   version "1.19.1"
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-1.19.1.tgz#33509849f8e679e4add158959fdb086440e9553f"
@@ -2354,10 +2346,10 @@
   dependencies:
     source-map "^0.6.1"
 
-"@types/uuid@^3.4.3":
-  version "3.4.8"
-  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-3.4.8.tgz#4ba887fcef88bd9a7515ca2de336d691e3e18318"
-  integrity sha512-zHWce3allXWSmRx6/AGXKCtSOA7JjeWd2L3t4aHfysNk8mouQnWCocveaT7a4IEIlPVHp81jzlnknqTgCjCLXA==
+"@types/uuid@^7.0.3":
+  version "7.0.3"
+  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-7.0.3.tgz#45cd03e98e758f8581c79c535afbd4fc27ba7ac8"
+  integrity sha512-PUdqTZVrNYTNcIhLHkiaYzoOIaUi5LFg/XLerAdgvwQrUCx+oSbtoBze1AMyvYbcwzUSNC+Isl58SM4Sm/6COw==
 
 "@types/webpack-sources@*":
   version "0.1.7"
@@ -4689,10 +4681,10 @@ decompress-unzip@^4.0.1:
     pify "^2.3.0"
     yauzl "^2.4.2"
 
-decompress@^4.2.0:
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/decompress/-/decompress-4.2.1.tgz#007f55cc6a62c055afa37c07eb6a4ee1b773f118"
-  integrity sha512-e48kc2IjU+2Zw8cTb6VZcJQ3lgVbS4uuB1TfCHbiZIP/haNXm+SVyhu+87jts5/3ROpd82GSVCoNs/z8l4ZOaQ==
+decompress@4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/decompress/-/decompress-4.2.0.tgz#7aedd85427e5a92dacfe55674a7c505e96d01f9d"
+  integrity sha1-eu3YVCflqS2s/lVnSnxQXpbQH50=
   dependencies:
     decompress-tar "^4.0.0"
     decompress-tarbz2 "^4.0.0"
@@ -9155,7 +9147,7 @@ modify-values@^1.0.0:
   resolved "https://registry.yarnpkg.com/modify-values/-/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
   integrity sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==
 
-moment@^2.21.0:
+moment@2.24.0, moment@^2.21.0:
   version "2.24.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
   integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
@@ -9770,7 +9762,7 @@ osenv@^0.1.4, osenv@^0.1.5:
     os-homedir "^1.0.0"
     os-tmpdir "^1.0.0"
 
-p-debounce@*, p-debounce@^2.1.0:
+p-debounce@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/p-debounce/-/p-debounce-2.1.0.tgz#e79f70c6e325cbb9bddbcbec0b81025084671ad3"
   integrity sha512-M9bMt62TTnozdZhqFgs+V7XD2MnuKCaz+7fZdlu2/T7xruI3uIE5CicQ0vx1hV7HIUYF0jF+4/R1AgfOkl74Qw==
@@ -12641,10 +12633,15 @@ utils-merge@1.0.1:
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
 
-uuid@^3.0.1, uuid@^3.1.0, uuid@^3.2.1, uuid@^3.3.2:
+uuid@^3.0.1, uuid@^3.1.0, uuid@^3.3.2:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
+
+uuid@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.0.0.tgz#bc6ccf91b5ff0ac07bbcdbf1c7c4e150db4dbb6c"
+  integrity sha512-jOXGuXZAWdsTH7eZLtyXMqUb9EcWMGZNbL9YcGBJl4MH4nrxHmZJhEHvyLFrkxo+28uLb/NYRcStH48fnD0Vzw==
 
 v8-compile-cache@2.0.3:
   version "2.0.3"
