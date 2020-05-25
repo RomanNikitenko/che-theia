@@ -21,7 +21,9 @@ import {
     CheApiService,
     CheTaskClient,
     CheTaskService,
-    CheProductService
+    CheProductService,
+    RemoteTaskServer,
+    remoteTaskServerPath
 } from '../common/che-protocol';
 import {
     CHE_PLUGIN_SERVICE_PATH,
@@ -35,6 +37,9 @@ import { CheProductServiceImpl } from './che-product-service';
 import { PluginApiContributionIntercepted } from './plugin-service';
 import { PluginApiContribution } from '@theia/plugin-ext/lib/main/node/plugin-service';
 import { CheClientIpServiceContribution } from './che-client-ip-service';
+import { ProcessTaskRunner } from '@theia/task/lib/node/process/process-task-runner';
+import { RemoteTaskRunner } from './remote-task-runner';
+import { RemoteTaskServerImpl, RemoteTaskRegistry } from './remote-task-server';
 
 export default new ContainerModule((bind, unbind, isBound, rebind) => {
     bind(ChePluginApiProvider).toSelf().inSingletonScope();
@@ -81,4 +86,14 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
         )
     ).inSingletonScope();
 
+    bind(RemoteTaskRunner).toSelf().inSingletonScope();
+    rebind(ProcessTaskRunner).toService(RemoteTaskRunner);
+
+    bind(RemoteTaskServerImpl).toSelf().inSingletonScope();
+    bind(RemoteTaskServer).toService(RemoteTaskServerImpl);
+    bind(ConnectionHandler).toDynamicValue(ctx =>
+        new JsonRpcConnectionHandler(remoteTaskServerPath, () => ctx.container.get(RemoteTaskServer))
+    ).inSingletonScope();
+
+    bind(RemoteTaskRegistry).toSelf().inSingletonScope();
 });

@@ -49,7 +49,7 @@ export class CheTaskImpl implements CheTask {
     }
 
     async $runTask(config: TaskConfiguration, ctx?: string): Promise<TaskInfo> {
-        const runner = this.runnerMap.get(config.type);
+        const runner = this.runnerMap.get(config.type) || this.runnerMap.get('che');
         if (runner) {
             return await runner.run(config, ctx);
         }

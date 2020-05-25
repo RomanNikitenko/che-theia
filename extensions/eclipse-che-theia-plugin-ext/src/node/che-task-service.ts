@@ -13,6 +13,7 @@ import { Task, TaskManager, TaskOptions, TaskRunnerRegistry } from '@theia/task/
 import { Disposable, ILogger } from '@theia/core';
 import { TaskConfiguration, TaskInfo } from '@theia/task/lib/common/task-protocol';
 import { TaskExitedEvent } from '@eclipse-che/plugin';
+import { RemoteTaskRunner } from './remote-task-runner';
 
 @injectable()
 export class CheTaskServiceImpl implements CheTaskService {
@@ -28,6 +29,9 @@ export class CheTaskServiceImpl implements CheTaskService {
         this.logger = container.get(ILogger);
         this.disposableMap = new Map();
         this.clients = [];
+
+        const remoteTaskRunner = container.get(RemoteTaskRunner);
+        remoteTaskRunner.setDelegate(this);
     }
 
     async registerTaskRunner(type: string): Promise<void> {
@@ -37,17 +41,7 @@ export class CheTaskServiceImpl implements CheTaskService {
             }
         };
         this.disposableMap.set(type, this.runnerRegistry.registerRunner(type, runner));
-        const runTask = async (config: TaskConfiguration, ctx?: string): Promise<Task> => {
-            for (const client of this.clients) {
-                const taskInfo = await client.runTask(config, ctx);
-                const options: CheTaskOptions = { label: config.label, config, context: ctx, runtimeInfo: taskInfo };
-
-                const cheTask = new CheTask(this.taskManager, this.logger, this.clients, options);
-                this.cheTasks.push(cheTask);
-                return cheTask;
-            }
-            throw new Error(`Failed to process configuration with label ${config.label} by Che Task Client`);
-        };
+        const runTask = async (config: TaskConfiguration, ctx?: string): Promise<Task> => this.run(config, ctx);
     }
 
     dispose(): void {
@@ -86,6 +80,18 @@ export class CheTaskServiceImpl implements CheTaskService {
                 break;
             }
         }
+    }
+
+    async run(config: TaskConfiguration, ctx?: string): Promise<Task> {
+        for (const client of this.clients) {
+            const taskInfo = await client.runTask(config, ctx);
+            const options: CheTaskOptions = { label: config.label, config, context: ctx, runtimeInfo: taskInfo };
+
+            const cheTask = new CheTask(this.taskManager, this.logger, this.clients, options);
+            this.cheTasks.push(cheTask);
+            return cheTask;
+        }
+        throw new Error(`Failed to process configuration with label ${config.label} by Che Task Client`);
     }
 }
 

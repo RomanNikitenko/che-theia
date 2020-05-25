@@ -12,10 +12,8 @@ import { TaskResolver, TaskResolverRegistry } from '@theia/task/lib/browser';
 import { TaskConfiguration } from '@theia/task/lib/common';
 import { VariableResolverService } from '@theia/variable-resolver/lib/browser';
 import { inject, injectable, postConstruct } from 'inversify';
-import { CheApiService } from '../common/che-protocol';
-import { ContainerPicker } from './container-picker';
-
-const COMPONENT_ATTRIBUTE: string = 'component';
+import { CheApiService, RemoteTaskServer } from '../common/che-protocol';
+import { ContainerPicker, getAttribute, COMPONENT_ATTRIBUTE } from './container-picker';
 
 @injectable()
 export class CheTaskResolver implements TaskResolver {
@@ -32,6 +30,9 @@ export class CheTaskResolver implements TaskResolver {
     @inject(TaskResolverRegistry)
     protected readonly taskResolverRegistry: TaskResolverRegistry;
 
+    @inject(RemoteTaskServer)
+    protected readonly remoteTaskServer: RemoteTaskServer;
+
     private workspaceId: string | undefined;
     private containers: { name: string, container: cheApi.workspace.Machine }[] = [];
 
@@ -44,19 +45,19 @@ export class CheTaskResolver implements TaskResolver {
     }
 
     async resolveTask(taskConfig: TaskConfiguration): Promise<TaskConfiguration> {
-        const taskType = taskConfig.type;
-        if (taskType !== 'che') {
-            throw new Error(`Unsupported task type: ${taskType}`);
-        }
-
         const target = taskConfig.target;
         const resultTarget: { [key: string]: string | undefined } = {};
 
         resultTarget.workspaceId = target && target.workspaceId ? target.workspaceId : await this.getWorkspaceId();
-        resultTarget.containerName = await this.getContainerName(target);
+        resultTarget.containerName = await this.getContainerName(taskConfig);
 
         if (target && target.workingDir) {
             resultTarget.workingDir = await this.variableResolverService.resolve(target.workingDir);
+        } else {
+            const options = taskConfig.options;
+            if (options && options.cwd) {
+                resultTarget.workingDir = await this.variableResolverService.resolve(options.cwd);
+            }
         }
 
         let commandLine = undefined;
@@ -68,7 +69,18 @@ export class CheTaskResolver implements TaskResolver {
         return { ...taskConfig, command: commandLine, target: resultTarget };
     }
 
-    private async getContainerName(target?: { containerName?: string, component?: string }): Promise<string> {
+    private async getContainerName(taskConfig: TaskConfiguration): Promise<string> {
+        const taskType = taskConfig.taskType || taskConfig.type;
+        const remoteTypes = await this.remoteTaskServer.getRegisteredRemoteTaskTypes();
+        const remoteType = remoteTypes.find(type => taskType === type.taskType);
+        if (remoteType) {
+            console.error('**** remote type is found ', remoteType);
+            return await this.getContainerNameByComponent(remoteType.component) || this.containerPicker.pick();
+        } else {
+            console.error('**** remote type is NOT found ', remoteType);
+        }
+
+        const target = taskConfig.target;
         if (!target) {
             return this.containerPicker.pick();
         }
@@ -93,6 +105,7 @@ export class CheTaskResolver implements TaskResolver {
         for (const containerEntity of containers) {
             const container = containerEntity.container;
             const component = getAttribute(COMPONENT_ATTRIBUTE, container.attributes);
+            console.error('9999999999999999 RESOLVE component ', component);
             if (component && component === targetComponent) {
                 names.push(containerEntity.name);
             }
@@ -140,15 +153,3 @@ export class CheTaskResolver implements TaskResolver {
     }
 }
 
-export function getAttribute(attributeName: string, attributes?: { [key: string]: string; }): string | undefined {
-    if (!attributes) {
-        return undefined;
-    }
-
-    for (const attribute in attributes) {
-        if (attribute === attributeName) {
-            return attributes[attribute];
-        }
-    }
-    return undefined;
-}

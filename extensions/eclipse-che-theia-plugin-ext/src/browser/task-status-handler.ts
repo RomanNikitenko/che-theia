@@ -51,6 +51,7 @@ export class TaskStatusHandler {
         });
 
         this.taskService.onDidStartTaskFailure(taskInfo => {
+            console.error('!!!!!!!!!!!! onDidStartTaskFailure ', taskInfo);
             const kind = taskInfo.kind;
             const terminalId = taskInfo.terminalId;
 
@@ -66,6 +67,7 @@ export class TaskStatusHandler {
     }
 
     async setTaskStatus(options: TaskStatusOptions): Promise<void> {
+        console.error('!!!!!!!!!!!! onDidStartTaskFailure !!!! set status ', options);
         const terminalIdentifier = options.terminalIdentifier;
         const kind = terminalIdentifier.kind;
         const terminalId = terminalIdentifier.terminalId;
@@ -79,10 +81,13 @@ export class TaskStatusHandler {
             console.log('Failed to set task status: the corresponding terminal is not found');
             return;
         }
-
+        console.error('!!!!!!!!!!!! onDidStartTaskFailure !!!! set status !!! FOUND ');
         const currentIcon = terminal.title.iconClass;
+        console.error('!!!!!!!!!!!! onDidStartTaskFailure !!!! set status !!! current ', currentIcon);
         const newStatusIcon = StatusIcon[status];
+        console.error('!!!!!!!!!!!! onDidStartTaskFailure !!!! set status !!! new ', newStatusIcon);
         if (currentIcon !== newStatusIcon) {
+            console.error('!!!!!!!!!!!! onDidStartTaskFailure !!!! set status !!! SET new ', newStatusIcon);
             terminal.title.iconClass = newStatusIcon;
         }
     }

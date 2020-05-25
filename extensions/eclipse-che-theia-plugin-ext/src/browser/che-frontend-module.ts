@@ -22,7 +22,9 @@ import {
     CheTaskClient,
     CheTaskService,
     CheProductService,
-    CheSideCarContentReaderRegistry
+    CheSideCarContentReaderRegistry,
+    RemoteTaskServer,
+    remoteTaskServerPath
 } from '../common/che-protocol';
 import {
     CHE_PLUGIN_SERVICE_PATH,
@@ -31,7 +33,7 @@ import {
 } from '../common/che-plugin-protocol';
 import { ChePluginServiceClientImpl } from './plugin/che-plugin-service-client';
 import { WebSocketConnectionProvider, WidgetFactory } from '@theia/core/lib/browser';
-import { CommandContribution, ResourceResolver } from '@theia/core/lib/common';
+import { CommandContribution, ResourceResolver, MenuContribution } from '@theia/core/lib/common';
 import { CheTaskClientImpl } from './che-task-client';
 import { ChePluginViewContribution } from './plugin/che-plugin-view-contribution';
 import { ChePluginView } from './plugin/che-plugin-view';
@@ -54,6 +56,7 @@ import { CheTaskResolver } from './che-task-resolver';
 import { CheTaskTerminalWidgetManager } from './che-task-terminal-widget-manager';
 import { TaskTerminalWidgetManager } from '@theia/task/lib/browser/task-terminal-widget-manager';
 import { ContainerPicker } from './container-picker';
+import { CheTaskFrontendContribution } from './task-frontend-contribution';
 
 export default new ContainerModule((bind, unbind, isBound, rebind) => {
     bind(CheApiProvider).toSelf().inSingletonScope();
@@ -122,4 +125,14 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
 
     bind(CheTaskTerminalWidgetManager).toSelf().inSingletonScope();
     rebind(TaskTerminalWidgetManager).toService(CheTaskTerminalWidgetManager);
+
+    bind(RemoteTaskServer).toDynamicValue(ctx => {
+        const connection = ctx.container.get(WebSocketConnectionProvider);
+        return connection.createProxy<RemoteTaskServer>(remoteTaskServerPath);
+    }).inSingletonScope();
+
+    bind(CheTaskFrontendContribution).toSelf().inSingletonScope();
+    for (const identifier of [CommandContribution, MenuContribution]) {
+        bind(identifier).toService(CheTaskFrontendContribution);
+    }
 });

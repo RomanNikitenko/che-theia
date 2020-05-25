@@ -27,7 +27,8 @@ export class TaskStatusHandler {
 
     private getTerminalIdentifier(event: che.TaskInfo | che.TaskExitedEvent): che.TerminalWidgetIdentifier {
         const taskConfig = event.config;
-        if (taskConfig && taskConfig.type === CHE_TASK_TYPE) {
+        console.error('++++++++++++++ getTerminalIdentifier ', taskConfig);
+        if (taskConfig && (taskConfig.type === CHE_TASK_TYPE || taskConfig.target && taskConfig.target.containerName)) {
             return { kind: che.TaskTerminallKind.RemoteTask, terminalId: event.processId };
         } else {
             return { kind: che.TaskTerminallKind.Task, terminalId: event.terminalId || -1 };

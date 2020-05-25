@@ -15,8 +15,10 @@ import { inject, injectable } from 'inversify';
 import { CheApiService } from '../common/che-protocol';
 
 const CONTAINERS_PLACE_HOLDER = 'Pick a container to run the task';
+const COMPONENTS_PLACE_HOLDER = 'Pick a component for remote runner';
 const RECIPE_CONTAINER_SOURCE = 'recipe';
 const CONTAINER_SOURCE_ATTRIBUTE = 'source';
+export const COMPONENT_ATTRIBUTE: string = 'component';
 
 @injectable()
 export class ContainerPicker implements QuickOpenHandler, QuickOpenModel {
@@ -39,7 +41,7 @@ export class ContainerPicker implements QuickOpenHandler, QuickOpenModel {
      *        all containers of the current workspace will be displayed if the optional parameter is absent
      */
 
-    async pick(containerNames?: string[]): Promise<string> {
+    async pick(containerNames?: string[], placeholder?: string): Promise<string> {
         this.items = [];
 
         if (!containerNames || containerNames.length < 1) {
@@ -65,8 +67,13 @@ export class ContainerPicker implements QuickOpenHandler, QuickOpenModel {
                 })
             ));
 
-            this.quickOpenService.open(this, this.getOptions());
+            this.quickOpenService.open(this, this.getOptions(placeholder));
         });
+    }
+
+    async pickComponent(): Promise<string> {
+        const components: string[] = await this.getWorkspaceComponents();
+        return this.pick(components, COMPONENTS_PLACE_HOLDER);
     }
 
     protected async pickContainers(): Promise<string> {
@@ -130,7 +137,7 @@ export class ContainerPicker implements QuickOpenHandler, QuickOpenModel {
             container.attributes[CONTAINER_SOURCE_ATTRIBUTE] === RECIPE_CONTAINER_SOURCE);
     }
 
-    protected async getWorkspaceContainers(): Promise<{ name: string, container: cheApi.workspace.Machine }[]> {
+    async getWorkspaceContainers(): Promise<{ name: string, container: cheApi.workspace.Machine }[]> {
         if (this.containers.length > 0) {
             return this.containers;
         }
@@ -142,6 +149,7 @@ export class ContainerPicker implements QuickOpenHandler, QuickOpenModel {
                 if (!containersList.hasOwnProperty(containerName)) {
                     continue;
                 }
+                console.error('************ container name ', containerName);
                 const container = { name: containerName, container: containersList[containerName] };
                 this.containers.push(container);
             }
@@ -152,9 +160,22 @@ export class ContainerPicker implements QuickOpenHandler, QuickOpenModel {
         return this.containers;
     }
 
-    getOptions(): QuickOpenOptions {
+    async getWorkspaceComponents(): Promise<string[]> {
+        const containers = await this.getWorkspaceContainers();
+        const components: string[] = [];
+        for (const containerEntity of containers) {
+            const container = containerEntity.container;
+            const component = getAttribute(COMPONENT_ATTRIBUTE, container.attributes);
+            if (component) {
+                components.push(component);
+            }
+        }
+        return components;
+    }
+
+    getOptions(placeholder?: string): QuickOpenOptions {
         return {
-            placeholder: CONTAINERS_PLACE_HOLDER,
+            placeholder: placeholder ? placeholder : CONTAINERS_PLACE_HOLDER,
             fuzzyMatchLabel: true,
             fuzzyMatchDescription: true,
             fuzzySort: false
@@ -168,4 +189,17 @@ export class ContainerPicker implements QuickOpenHandler, QuickOpenModel {
     getModel(): QuickOpenModel {
         return this;
     }
+}
+
+export function getAttribute(attributeName: string, attributes?: { [key: string]: string; }): string | undefined {
+    if (!attributes) {
+        return undefined;
+    }
+
+    for (const attribute in attributes) {
+        if (attribute === attributeName) {
+            return attributes[attribute];
+        }
+    }
+    return undefined;
 }

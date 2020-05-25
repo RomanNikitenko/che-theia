@@ -12,6 +12,8 @@ import { che as cheApi } from '@eclipse-che/api';
 import * as che from '@eclipse-che/plugin';
 import { Event, JsonRpcServer } from '@theia/core';
 import { createProxyIdentifier } from '@theia/plugin-ext/lib/common/rpc-protocol';
+import { TaskConfiguration } from '@theia/task/lib/common';
+import { Task } from '@theia/task/lib/node';
 
 /**
  * Workspace plugin API
@@ -483,10 +485,24 @@ export interface CheApiService {
     getOAuthProviders(token?: string): Promise<string[]>;
 }
 
+export const remoteTaskServerPath = '/services/remote-task';
+export const RemoteTaskServer = Symbol('RemoteTaskServer');
+
+export interface RemoteTaskServer {
+    registerRemoteTaskType(type: RemoteTaskType): Promise<void>;
+    getRegisteredRemoteTaskTypes(): Promise<RemoteTaskType[]>
+}
+
+export interface RemoteTaskType {
+    readonly taskType: string;
+    readonly component: string;
+}
+
 export const CHE_TASK_SERVICE_PATH = '/che-task-service';
 
 export const CheTaskService = Symbol('CheTaskService');
 export interface CheTaskService extends JsonRpcServer<CheTaskClient> {
+    run(config: TaskConfiguration, ctx?: string): Promise<Task>;
     registerTaskRunner(type: string): Promise<void>;
     disposeTaskRunner(type: string): Promise<void>;
     disconnectClient(client: CheTaskClient): void;
