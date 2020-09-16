@@ -19,6 +19,8 @@ import { ConnectionContainerModule } from '@theia/core/lib/node/messaging/connec
 import { PluginReaderExtension } from './plugin-reader-extension';
 import { HostedPluginProcess, HostedPluginProcessConfiguration } from '@theia/plugin-ext/lib/hosted/node/hosted-plugin-process';
 import { LogHostedPluginProcess } from './hosted-plugin-process-log';
+import { EnvVariablesServer } from '@theia/core/lib/common/env-variables';
+import { EnvVariablesServerImpl } from '@theia/core/lib/node/env-variables';
 
 const localModule = ConnectionContainerModule.create(({ bind, unbind, isBound, rebind }) => {
     bind(HostedPluginRemote).toSelf().inSingletonScope().onActivation((ctx: interfaces.Context, hostedPluginRemote: HostedPluginRemote) => {
@@ -44,4 +46,5 @@ export default new ContainerModule((bind, unbind, isBound, rebind) => {
 
     rebind(HostedPluginProcessConfiguration).toConstantValue({ path: path.resolve(__dirname, 'plugin-host-custom.js') });
     bind(ConnectionContainerModule).toConstantValue(localModule);
+    bind(EnvVariablesServer).to(EnvVariablesServerImpl).inSingletonScope();
 });
