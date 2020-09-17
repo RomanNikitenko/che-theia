@@ -6638,7 +6638,7 @@ download@^8.0.0:
     p-event "^2.1.0"
     pify "^4.0.1"
 
-drivelist@^9.0.2:
+drivelist@9.0.2, drivelist@^9.0.2:
   version "9.0.2"
   resolved "https://registry.yarnpkg.com/drivelist/-/drivelist-9.0.2.tgz#8c7cd67b3710e4b282e7f0f35290009e63bc46e8"
   integrity sha512-B68AttNDXsew8M2viM99I4sNMJ2T5/lZ2fDlVsEAAzaJ1pyZN2Ibhhd37LAqsNRPhhPtpyrCi9+C6AfJ2kwo4g==

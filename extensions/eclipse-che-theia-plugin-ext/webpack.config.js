@@ -37,6 +37,9 @@ module.exports = {
             }
         ]
     },
+    externals: {
+        drivelist: 'require("drivelist")'
+    },
     plugins: [
         new CleanWebpackPlugin(['lib/webworker'])
     ],
