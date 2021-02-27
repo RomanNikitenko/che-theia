@@ -12,3 +12,32 @@
  * Mock of @theia/plugin module
  * @author Valerii Svydenko
  */
+import { onDidChangeWorkspaceFoldersTestImpl, file } from '../../tests/workspace-folder-updater.spec';
+interface WorkspaceFoldersChangeEvent {
+  readonly added: WorkspaceFolder[];
+}
+
+interface WorkspaceFolder {
+  readonly uri: Uri;
+}
+
+export class Uri {
+  readonly path: string;
+}
+
+const theia: any = {};
+theia.workspace = {};
+
+const onDidChangeWorkspaceFolders = jest.fn();
+theia.workspace.onDidChangeWorkspaceFolders = onDidChangeWorkspaceFolders;
+const dispose = {
+  dispose(): void {},
+};
+onDidChangeWorkspaceFolders.mockImplementation(onDidChangeWorkspaceFoldersTestImpl);
+
+const fileFunc = jest.fn();
+
+module.exports = theia;
+theia.Uri = {};
+theia.Uri.file = fileFunc;
+fileFunc.mockImplementation(file);

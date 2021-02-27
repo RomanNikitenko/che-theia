@@ -16,6 +16,7 @@ export class WorkspaceFolderUpdater {
   private addingWorkspaceFolderPromise: Promise<void> | undefined;
 
   async addWorkspaceFolder(path: string): Promise<void> {
+    console.info('111111111111111111111');
     const workspaceFolderPath = this.toValidWorkspaceFolderPath(path);
     if (this.pendingFolders.includes(workspaceFolderPath)) {
       return Promise.resolve();
@@ -43,13 +44,16 @@ export class WorkspaceFolderUpdater {
 
   protected addFolder(projectPath: string): Promise<void> {
     const isProjectFolder = (folder: theia.WorkspaceFolder) => folder.uri.path === projectPath;
-    const workspaceFolders = theia.workspace.workspaceFolders || [];
+    const workspaceFolders: theia.WorkspaceFolder[] = theia.workspace.workspaceFolders || [];
     if (workspaceFolders.some(isProjectFolder)) {
       return Promise.resolve(undefined);
     }
 
     return new Promise<void>((resolve, reject) => {
+      console.info('==== WORSPACE UPDATER === before onDidChangeWorkspaceFolders ', projectPath);
       const disposable = theia.workspace.onDidChangeWorkspaceFolders(event => {
+        console.info('==== WORSPACE UPDATER === !!!!!!!! onDidChangeWorkspaceFolders !!!!! ');
+        console.dir(event.added[0]);
         const existingWorkspaceFolders = theia.workspace.workspaceFolders || [];
         if (event.added.some(isProjectFolder) || existingWorkspaceFolders.some(isProjectFolder)) {
           clearTimeout(addFolderTimeout);
@@ -70,6 +74,7 @@ export class WorkspaceFolderUpdater {
         );
       }, UPDATE_WORKSPACE_FOLDER_TIMEOUT);
 
+      console.info('==== WORSPACE UPDATER === before add ', projectPath);
       theia.workspace.updateWorkspaceFolders(workspaceFolders ? workspaceFolders.length : 0, undefined, {
         uri: theia.Uri.file(projectPath),
       });
