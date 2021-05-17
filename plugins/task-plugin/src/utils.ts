@@ -122,7 +122,9 @@ export function writeFileSync(filePath: string, content: string): void {
 
 /** Asynchronously writes given content to the file. Creates directories to the file if they don't exist */
 export async function writeFile(filePath: string, content: string): Promise<void> {
+  console.error('++++++++++++++++++++ writeFile +++ ', filePath);
   await ensureDirExists(filePath);
+  console.error('+++ writeFile +++ after ensure ', filePath);
   return fs.writeFile(filePath, content);
 }
 
@@ -137,9 +139,9 @@ export function ensureDirExistence(filePath: string): void {
 
 /** Creates a directory containing the file if they don't exist */
 export async function ensureDirExists(filePath: string): Promise<void> {
+  console.error('+++ ensureDirExists +++ ', filePath);
   const dirName = path.dirname(filePath);
-  if (await fs.pathExists(dirName)) {
-    return;
-  }
+  console.error('+++ ensureDirExists +++ DIR ', dirName);
+
   return fs.mkdirp(dirName);
 }
